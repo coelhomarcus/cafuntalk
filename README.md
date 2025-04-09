@@ -17,8 +17,8 @@ CafunTalk é um aplicativo de chat moderno, sem distrações e privado, sem hist
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend:** React
-- **Backend:** Node.js, Express
+- **Frontend:** React, Typescript, Tailwind
+- **Backend:** Node.js, Express, Javascript
 - **WebSocket:** Socket.IO
 
 ## 💡 Passos Futuros
