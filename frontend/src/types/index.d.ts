@@ -2,6 +2,7 @@ type Message = {
   sender: string;
   text: string;
   room: string;
+  avatarIndex: number;
 };
 
 type TWelcome = {
@@ -14,6 +15,7 @@ type TWelcome = {
 type TConversation = {
   messages: Message[];
   userName: string;
+  avatars: string[];
 };
 
 type TMsgInput = {

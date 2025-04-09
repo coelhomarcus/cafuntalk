@@ -11,6 +11,16 @@ import MsgInput from "./components/MsgInput";
 
 const socket = io("http://localhost:3001");
 
+const avatars = [
+  "https://i.pinimg.com/736x/6c/74/10/6c74100c2039f9352bfc2bcbb766d813.jpg",
+  "https://tr.rbxcdn.com/180DAY-596e34a607016d245c74aa2976662af6/420/420/Hat/Webp/noFilter",
+  "https://tr.rbxcdn.com/b26e419134c49a0f6c2bbfc24aaf9c8a/420/420/Hat/Png",
+  "https://tr.rbxcdn.com/180DAY-f98adbee32f29755aa3a0f09a35d71df/420/420/Hat/Png/noFilter",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Hnnmn8d6CCWP0eYNnRxZwl6GfkbO6hfwRg&s",
+];
+
+const index = Math.floor(Math.random() * (avatars.length - 1));
+
 export default function App() {
   const [localMsg, setLocalMsg] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -50,6 +60,7 @@ export default function App() {
       sender: userName,
       text: localMsg,
       room: room,
+      avatarIndex: index,
     });
 
     setLocalMsg("");
@@ -78,7 +89,11 @@ export default function App() {
         <Header />
 
         {/* Chat */}
-        <Conversation messages={messages} userName={userName} />
+        <Conversation
+          messages={messages}
+          userName={userName}
+          avatars={avatars}
+        />
 
         {/* Input */}
         <MsgInput
