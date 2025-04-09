@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 import isImageUrl from "../utils/isImageUrl";
+import isCode from "../utils/isCode";
 
 const Conversation = ({ messages, userName }: TConversation) => {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -14,6 +18,7 @@ const Conversation = ({ messages, userName }: TConversation) => {
       {messages.map((m, i) => {
         const isMe = m.sender === userName;
         const isImage = isImageUrl(m.text);
+        const [lang, code] = isCode(m.text) ?? ["", ""];
 
         return (
           <div
@@ -24,7 +29,7 @@ const Conversation = ({ messages, userName }: TConversation) => {
               {m.sender}
             </p>
             <div
-              className={`max-w-[75%] p-3 ${
+              className={`max-w-[75%] p-2 ${
                 isMe
                   ? "bg-user text-[#3B1F00] rounded-lg rounded-tr-none"
                   : "bg-friend text-[#1C1C1C] rounded-lg rounded-tl-none"
@@ -32,8 +37,18 @@ const Conversation = ({ messages, userName }: TConversation) => {
             >
               {isImage ? (
                 <img src={m.text} alt="img" className="rounded-lg max-w-xs" />
+              ) : code ? (
+                <SyntaxHighlighter
+                  language={lang}
+                  style={coldarkDark}
+                  customStyle={{ margin: "0", fontSize: "0.9rem" }}
+                  className="rounded-lg rounded-tr-none"
+                  wrapLines={true}
+                >
+                  {code}
+                </SyntaxHighlighter>
               ) : (
-                <p className="text-xl font-message">{m.text}</p>
+                <pre className="text-xl font-message">{m.text}</pre>
               )}
               <div ref={bottomRef} />
             </div>

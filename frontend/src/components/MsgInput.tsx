@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const MsgInput = ({
   localMsg,
   setLocalMsg,
@@ -5,17 +7,29 @@ const MsgInput = ({
   setIsComposing,
   sendMessage,
 }: TMsgInput) => {
+  const [rows, setRows] = useState(1);
+
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setLocalMsg(e.target.value);
+    const value = e.target.value;
+
+    const lineCount = value.split("\n").length;
+    setRows(Math.min(lineCount, 4));
+  }
+
   return (
     <div className="bg-bgColor border-t border-borderColor p-3">
       <div className="flex items-center gap-2">
         <div className="flex-1 bg-bgInput border border-borderColor rounded px-4 py-2">
-          <input
-            className="w-full bg-transparent outline-none text-textInput placeholder-placeholder"
+          <textarea
+            className="w-full resize-none max-h-20 bg-transparent outline-none text-textInput placeholder-placeholder scrollbar-thin scrollbar-thumb-user scrollbar-track-bgColor"
             value={localMsg}
-            onChange={(e) => setLocalMsg(e.target.value)}
+            rows={rows}
+            onChange={(e) => handleChange(e)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "Enter" && !e.shiftKey) {
                 handleKeyDown(e);
+                setRows(1);
               }
             }}
             onCompositionStart={() => setIsComposing(true)}

@@ -19,7 +19,7 @@ type TConversation = {
 type TMsgInput = {
   localMsg: string;
   setLocalMsg: (value: string) => void;
-  handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
   setIsComposing: React.Dispatch<React.SetStateAction<boolean>>;
   sendMessage: () => void;
 };
