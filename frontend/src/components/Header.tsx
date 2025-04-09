@@ -7,10 +7,14 @@ const Header = () => {
           alt="CafunTalk Logo"
           className="h-12  w-auto rounded-full"
         />
-        <h1 className="text-xl font-medium text-gray-100">
+        <a
+          className="text-xl font-medium"
+          href="https://github.com/coelhomarcus"
+          target="_blank"
+        >
           <span className="text-user font-logo">Cafun</span>
           <span className="text-friend font-logo">Talk</span>
-        </h1>
+        </a>
       </div>
     </div>
   );

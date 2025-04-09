@@ -1,12 +1,4 @@
-import React from "react";
 import { useRoomName } from "../hooks/useRoomName";
-
-type TWelcome = {
-  inputRef: React.RefObject<HTMLInputElement> | null;
-  inputName: string;
-  setInputName: (value: string) => void;
-  setUserName: (value: string) => void;
-};
 
 const Welcome = ({
   inputRef,
