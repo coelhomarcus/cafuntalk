@@ -36,7 +36,11 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
             )}
 
             <div className={`flex flex-col max-w-[75%]`}>
-              <p className="font-medium mb-1 text-sm text-gray-400 font-name">
+              <p
+                className={`font-medium mb-1 text-sm text-gray-400 font-name ${
+                  isMe ? "text-end" : "text-start"
+                }`}
+              >
                 {m.sender}
               </p>
               <div
@@ -59,7 +63,9 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
                     {code}
                   </SyntaxHighlighter>
                 ) : (
-                  <pre className="text-xl font-message">{m.text}</pre>
+                  <p className="text-xl font-message text-wrap break-words whitespace-pre-wrap">
+                    {m.text}
+                  </p>
                 )}
                 <div ref={bottomRef} />
               </div>

@@ -9,6 +9,10 @@ import Welcome from "./components/Welcome";
 import Conversation from "./components/Conversation";
 import MsgInput from "./components/MsgInput";
 
+//PROD
+// const socket = io("https://api.coelhomarcus.com:3001");
+
+//DEV
 const socket = io("http://localhost:3001");
 
 const avatars = [
