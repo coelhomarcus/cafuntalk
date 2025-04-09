@@ -24,6 +24,8 @@ export default function App() {
   const [inputName, setInputName] = useState<string>("");
   const [userName, setUserName] = useState<string | null>(null);
 
+  const [isComposing, setIsComposing] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null!);
 
   useEffect(() => {
@@ -42,6 +44,23 @@ export default function App() {
     });
 
     setLocalMsg("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isComposing) return;
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      const trimmedMsg = localMsg.trim();
+
+      if (!trimmedMsg || trimmedMsg === "'") {
+        setLocalMsg("");
+        return;
+      }
+
+      sendMessage();
+    }
   };
 
   function isImageUrl(text: string) {
@@ -93,16 +112,18 @@ export default function App() {
         {/* Input fixado no final */}
         <div className="bg-bgColor border-t border-borderColor p-3">
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-[#191919] border border-borderColor rounded px-4 py-2">
+            <div className="flex-1 bg-bgInput border border-borderColor rounded px-4 py-2">
               <input
-                className="w-full bg-transparent outline-none text-gray-200 placeholder-gray-400"
+                className="w-full bg-transparent outline-none text-textInput placeholder-placeholder"
                 value={localMsg}
                 onChange={(e) => setLocalMsg(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    sendMessage();
+                    handleKeyDown(e);
                   }
                 }}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
                 placeholder="Type your message..."
               />
             </div>
