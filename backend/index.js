@@ -13,9 +13,14 @@ const users = {};
 io.on("connection", (socket) => {
   console.log("Usuário: ", socket.id, " conectou!");
 
+  socket.on("joinRoom", (room) => {
+    console.log(room);
+    socket.join(room);
+  });
+
   socket.on("message", (data) => {
     console.log("Mensagem recebida:", data);
-    io.emit("message", data); // broadcast para todos os clientes
+    io.to(data.room).emit("message", data);
   });
 
   socket.on("disconnect", () => {

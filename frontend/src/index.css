@@ -1,2 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Quicksand:wght@300..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 @import "tailwindcss";
 @plugin 'tailwind-scrollbar';
+
+@theme {
+  --font-logo: "Rubik", sans-serif;
+  --font-name: "Quicksand", sans-serif;
+  --font-message: "Rubik", sans-serif;
+
+  --color-user: #aeea94;
+  --color-friend: #b771e5;
+  --color-bgColor: #131313;
+  --color-borderColor: #202020;
+}

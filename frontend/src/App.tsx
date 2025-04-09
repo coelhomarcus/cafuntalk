@@ -1,6 +1,9 @@
 // Chat.tsx
 import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
+
+import { useRoomName } from "../src/hooks/useRoomName";
+
 import Header from "./components/Header";
 import Welcome from "./components/Welcome";
 
@@ -9,12 +12,15 @@ const socket = io("http://localhost:3001");
 type Message = {
   sender: string;
   text: string;
+  room: string;
 };
 
 export default function App() {
-  const [msg, setMsg] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const room = useRoomName();
+  socket.emit("joinRoom", room);
 
+  const [localMsg, setLocalMsg] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputName, setInputName] = useState<string>("");
   const [userName, setUserName] = useState<string | null>(null);
 
@@ -22,29 +28,35 @@ export default function App() {
 
   useEffect(() => {
     socket.on("message", (data) => {
-      setMessages((prev) => [...prev, data]); // data = { sender, text }
+      setMessages((prev) => [...prev, data]);
     });
   }, []);
 
   const sendMessage = () => {
-    if (!msg.trim()) return;
+    if (!localMsg.trim()) return;
 
     socket.emit("message", {
       sender: userName,
-      text: msg,
+      text: localMsg,
+      room: room,
     });
 
-    setMsg("");
+    setLocalMsg("");
   };
+
+  function isImageUrl(text: string) {
+    return text.match(/\.(jpeg|jpg|gif|png|webp)$/i);
+  }
 
   if (userName) {
     return (
-      <div className="flex flex-col h-screen bg-[#131313]">
+      <div className="flex flex-col h-screen bg-bgColor">
         <Header />
         {/* Área do chat/scroll */}
-        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-[#303030] scrollbar-track-[#131313] p-4 space-y-3">
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-borderColor scrollbar-track-bgColor p-4 space-y-3">
           {messages.map((m, i) => {
             const isMe = m.sender === userName;
+            const isImage = isImageUrl(m.text);
 
             return (
               <div
@@ -53,17 +65,25 @@ export default function App() {
                   isMe ? "items-end" : "items-start"
                 }`}
               >
-                <p className="font-medium mb-1 text-sm text-gray-400">
+                <p className="font-medium mb-1 text-sm text-gray-400 font-name">
                   {m.sender}
                 </p>
                 <div
                   className={`max-w-[75%] p-3 ${
                     isMe
-                      ? "bg-[#FFB085] text-[#1C1C1C] rounded-2xl rounded-tr-none"
-                      : "bg-[#C8A2FF] text-[#1C1C1C] rounded-2xl rounded-tl-none"
+                      ? "bg-user text-[#3B1F00] rounded-lg rounded-tr-none"
+                      : "bg-friend text-[#1C1C1C] rounded-lg rounded-tl-none"
                   }`}
                 >
-                  <p className="text-xl">{m.text}</p>
+                  {isImage ? (
+                    <img
+                      src={m.text}
+                      alt="img"
+                      className="rounded-lg max-w-xs"
+                    />
+                  ) : (
+                    <p className="text-xl font-message">{m.text}</p>
+                  )}
                 </div>
               </div>
             );
@@ -71,26 +91,26 @@ export default function App() {
         </div>
 
         {/* Input fixado no final */}
-        <div className="bg-[#131313] border-t border-[#303030] p-3">
+        <div className="bg-bgColor border-t border-borderColor p-3">
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-[#191919] border border-[#303030] rounded px-4 py-2">
+            <div className="flex-1 bg-[#191919] border border-borderColor rounded px-4 py-2">
               <input
                 className="w-full bg-transparent outline-none text-gray-200 placeholder-gray-400"
-                value={msg}
-                onChange={(e) => setMsg(e.target.value)}
+                value={localMsg}
+                onChange={(e) => setLocalMsg(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     sendMessage();
                   }
                 }}
-                placeholder="Digite sua mensagem..."
+                placeholder="Type your message..."
               />
             </div>
             <button
-              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+              className="bg-user text-bgColor font-medium py-2 px-4 rounded-md border border-user shadow-sm hover:bg-bgColor hover:text-user hover:shadow-md transition-all duration-200 cursor-pointer"
               onClick={sendMessage}
             >
-              Enviar
+              Send
             </button>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useRoomName } from "../hooks/useRoomName";
 
 type TWelcome = {
   inputRef: React.RefObject<HTMLInputElement> | null;
@@ -13,11 +14,31 @@ const Welcome = ({
   setInputName,
   setUserName,
 }: TWelcome) => {
+  const room = useRoomName();
+
   return (
-    <div className="h-screen flex items-center justify-center bg-[#131313]">
-      <div className="bg-transparent p-6 rounded-xl shadow-lg w-full max-w-sm border border-[#404040]">
-        <h1 className="text-2xl font-medium text-gray-100 mb-4">Bem-vindo</h1>
-        <p className="text-gray-400 mb-6 text-sm">Como podemos te chamar?</p>
+    <div className="h-screen flex items-center justify-center bg-bgColor">
+      <div className="bg-transparent p-6 rounded-xl shadow-lg w-full max-w-sm border border-borderColor">
+        <h1 className="text-3xl font-medium text-gray-100 mb-4 text-center">
+          <span className="text-user font-logo">Cafun</span>
+          <span className="text-friend font-logo">Talk</span>
+        </h1>
+        <p className="text-gray-200 mb-2 text-sm">
+          Room: <span className="text-friend">{room}</span>
+        </p>
+        <p className="text-gray-400 mb-3 text-sm">
+          Welcome to CafunTalk, a minimal, distraction-free chat application.
+        </p>
+        <p className="text-gray-400 mb-3 text-sm">
+          Want to change channels?
+          <br />- Just add <span className="text-user">/?roomname</span> to the
+          end of the URL.
+        </p>
+        <p className="text-gray-400 mb-6 text-sm">
+          There are no channel lists, so a secret channel name can be used for
+          private discussions.
+        </p>
+        <p className="text-gray-200 mb-2 text-sm">What's your username?</p>
         <div className="space-y-4">
           <input
             ref={inputRef}
@@ -28,16 +49,16 @@ const Welcome = ({
                 setUserName(inputName);
               }
             }}
-            className="w-full bg-[#131313] border border-[#404040] px-4 py-2 rounded-lg focus:outline-none 1 text-gray-200 placeholder-gray-500"
-            placeholder="Seu nome"
+            className="w-full bg-bgColor border border-borderColor px-4 py-2 rounded-lg focus:outline-none 1 text-gray-200 placeholder-gray-500"
+            placeholder="username"
           />
           <button
             onClick={() => setUserName(inputName)}
-            className="w-full bg-blue-600 hover:bg-blue-800 
-              text-gray-100 px-4 py-2 rounded-lg 
-              transition duration-300 cursor-pointer"
+            className="w-full bg-user
+              text-[#121212] hover:font-medium px-4 py-2 rounded-lg 
+              transition-all duration-300 cursor-pointer"
           >
-            Continuar
+            Let’s go →
           </button>
         </div>
       </div>
