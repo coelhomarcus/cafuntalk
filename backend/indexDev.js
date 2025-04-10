@@ -9,9 +9,16 @@ const io = new Server(server, {
 });
 
 const users = new Map();
+const avatars = ["/pfps/1.webp", "/pfps/2.webp", "/pfps/3.webp"];
+
+const getRandomAvatar = () => {
+  const index = Math.floor(Math.random() * avatars.length);
+  return avatars[index];
+};
 
 io.on("connection", (socket) => {
   console.log("Usuário: ", socket.id, " conectou!");
+  const randomAvatar = getRandomAvatar();
 
   socket.on("joinRoom", (room, userName) => {
     socket.join(room);
@@ -32,9 +39,16 @@ io.on("connection", (socket) => {
     io.to(room).emit("userCount", count);
   });
 
-  socket.on("message", (data) => {
+  socket.on("message", async (data) => {
     console.log("Mensagem recebida:", data);
-    io.to(data.room).emit("message", data);
+
+    const isValid = await isValidImageUrl(data.avatarUrl);
+    const finalAvatar = isValid ? data.avatarUrl : randomAvatar;
+
+    io.to(data.room).emit("message", {
+      ...data,
+      avatarUrl: finalAvatar,
+    });
   });
 
   socket.on("disconnect", () => {
@@ -65,3 +79,14 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
   console.log("Servidor socket rodando na porta 3001");
 });
+
+async function isValidImageUrl(url) {
+  try {
+    const res = await fetch(url, { method: "HEAD" });
+    const contentType = res.headers.get("content-type") || "";
+    return res.ok && contentType.startsWith("image/");
+  } catch (err) {
+    console.error("Erro ao validar imagem");
+    return false;
+  }
+}

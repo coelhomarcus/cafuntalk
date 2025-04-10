@@ -13,6 +13,7 @@ CafunTalk é um aplicativo de chat moderno, sem distrações e privado, sem hist
 - ✅ Interface responsiva e amigável
 - ✅ Imagens (Através de links)
 - ✅ Bloco de Codigo
+- ✅ Avatar Personalizado
 - ✅ Avatar Aleatorio
 - ✅ Mensagem de Entrada e Saida
 

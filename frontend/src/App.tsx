@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 import { useRoomName } from "../src/hooks/useRoomName";
-import { getRandomAvatar } from "./utils/avatarUtils";
-import { isValidImageUrl } from "../src/utils/avatarUtils";
 
 import Header from "./components/Header";
 import Welcome from "./components/Welcome";
@@ -16,7 +14,6 @@ import MsgInput from "./components/MsgInput";
 
 //DEV
 const socket = io("http://localhost:3001");
-const avatarRandomized = getRandomAvatar();
 
 export default function App() {
   const [localMsg, setLocalMsg] = useState("");
@@ -61,14 +58,11 @@ export default function App() {
   const sendMessage = async () => {
     if (!localMsg.trim()) return;
 
-    const isValid = await isValidImageUrl(avatarUrl);
-    const finalAvatar = isValid ? avatarUrl : avatarRandomized;
-
     socket.emit("message", {
       sender: userName,
       text: localMsg,
       room: room,
-      avatarUrl: finalAvatar,
+      avatarUrl: avatarUrl,
     });
 
     setLocalMsg("");
