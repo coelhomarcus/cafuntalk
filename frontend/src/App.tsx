@@ -30,21 +30,29 @@ export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputName, setInputName] = useState<string>("");
   const [userName, setUserName] = useState<string | null>(null);
-
+  const [userCount, setUserCount] = useState(0);
   const [isComposing, setIsComposing] = useState(false);
-
   const inputRef = useRef<HTMLInputElement>(null!);
-
   const room = useRoomName();
 
-  //Join Room
+  //Join Room & Count
   useEffect(() => {
-    if (room) {
-      socket.emit("joinRoom", room);
-    }
-  }, [room]);
+    if (room && userName) {
+      socket.emit("joinRoom", room, userName);
 
-  //Send Message & Clean up
+      const handleUserCount = (count: number) => {
+        setUserCount(count);
+      };
+
+      socket.on("userCount", handleUserCount);
+
+      return () => {
+        socket.off("userCount", handleUserCount);
+      };
+    }
+  }, [room, userName]);
+
+  //SetMessage
   useEffect(() => {
     const handleMessage = (data: Message) => {
       setMessages((prev) => [...prev, data]);
@@ -75,41 +83,16 @@ export default function App() {
 
     if (e.key === "Enter") {
       e.preventDefault();
-
       const trimmedMsg = localMsg.trim();
-
       if (!trimmedMsg || trimmedMsg === "'") {
         setLocalMsg("");
         return;
       }
-
       sendMessage();
     }
   };
 
-  if (userName) {
-    return (
-      <div className="flex flex-col h-screen bg-bgColor">
-        <Header />
-
-        {/* Chat */}
-        <Conversation
-          messages={messages}
-          userName={userName}
-          avatars={avatars}
-        />
-
-        {/* Input */}
-        <MsgInput
-          localMsg={localMsg}
-          setLocalMsg={setLocalMsg}
-          handleKeyDown={handleKeyDown}
-          setIsComposing={setIsComposing}
-          sendMessage={sendMessage}
-        />
-      </div>
-    );
-  } else {
+  if (!userName) {
     return (
       <Welcome
         inputRef={inputRef}
@@ -119,4 +102,23 @@ export default function App() {
       />
     );
   }
+
+  return (
+    <div className="flex flex-col h-screen bg-bgColor">
+      {/* Chat */}
+      <Header online={userCount} />
+
+      {/* Chat */}
+      <Conversation messages={messages} userName={userName} avatars={avatars} />
+
+      {/* Input */}
+      <MsgInput
+        localMsg={localMsg}
+        setLocalMsg={setLocalMsg}
+        handleKeyDown={handleKeyDown}
+        setIsComposing={setIsComposing}
+        sendMessage={sendMessage}
+      />
+    </div>
+  );
 }

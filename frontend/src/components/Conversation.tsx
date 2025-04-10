@@ -16,6 +16,14 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
   return (
     <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-borderColor scrollbar-track-bgColor p-4 space-y-3">
       {messages.map((m, i) => {
+        if (m.system) {
+          return (
+            <div key={i} className="text-center text-gray-500 italic">
+              {m.text}
+            </div>
+          );
+        }
+
         const isMe = m.sender === userName;
         const isImage = isImageUrl(m.text);
         const [lang, code] = isCode(m.text) ?? ["", ""];

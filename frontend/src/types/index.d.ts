@@ -3,6 +3,7 @@ type Message = {
   text: string;
   room: string;
   avatarIndex: number;
+  system: boolean;
 };
 
 type TWelcome = {

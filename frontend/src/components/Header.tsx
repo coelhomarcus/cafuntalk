@@ -1,6 +1,6 @@
 import { useRoomName } from "../hooks/useRoomName";
 
-const Header = () => {
+const Header = ({ online }: { online: number }) => {
   const room = useRoomName();
 
   return (
@@ -23,6 +23,9 @@ const Header = () => {
       <div>
         <p className="text-textInput">
           Room: <span className="text-friend">{room}</span>
+        </p>
+        <p className="text-textInput">
+          Online: <span className="text-friend">{online}</span>
         </p>
       </div>
     </div>

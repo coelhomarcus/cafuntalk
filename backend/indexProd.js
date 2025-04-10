@@ -15,8 +15,8 @@ const certificate = fs.readFileSync(
 const credentials = { key: privateKey, cert: certificate };
 
 const app = express();
-const httpsServer = createServer(credentials, app);
-const io = new Server(httpsServer, {
+const server = createServer(credentials, app);
+const io = new Server(server, {
   cors: { origin: "https://chat.coelhomarcus.com" },
 });
 
@@ -40,6 +40,6 @@ io.on("connection", (socket) => {
   });
 });
 
-httpsServer.listen(3001, () => {
+server.listen(3001, () => {
   console.log("Servidor socket rodando em http://localhost:3001");
 });

@@ -8,14 +8,32 @@ const io = new Server(server, {
   cors: { origin: "*" },
 });
 
-const users = {};
+const roomUsersCount = {};
+const userRoomMap = {};
+let user = "";
 
 io.on("connection", (socket) => {
   console.log("Usuário: ", socket.id, " conectou!");
 
-  socket.on("joinRoom", (room) => {
-    console.log(room);
+  socket.on("joinRoom", (room, userName) => {
     socket.join(room);
+    user = userName;
+    userRoomMap[socket.id] = room;
+
+    if (!roomUsersCount[room]) {
+      roomUsersCount[room] = 0;
+    }
+    roomUsersCount[room]++;
+
+    io.to(room).emit("userCount", roomUsersCount[room]);
+
+    io.to(room).emit("message", {
+      sender: "System",
+      text: `${user} joined the room.`,
+      room: room,
+      avatarIndex: null,
+      system: true,
+    });
   });
 
   socket.on("message", (data) => {
@@ -24,10 +42,26 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    const room = userRoomMap[socket.id];
+    if (room) {
+      roomUsersCount[room] = Math.max((roomUsersCount[room] || 1) - 1, 0);
+
+      io.to(room).emit("userCount", roomUsersCount[room]);
+
+      io.to(room).emit("message", {
+        sender: "System",
+        text: `${user} left the room.`,
+        room: room,
+        avatarIndex: null,
+        system: true,
+      });
+
+      delete userRoomMap[socket.id];
+    }
     console.log("Usuário: ", socket.id, " desconectou!");
   });
 });
 
 server.listen(3001, () => {
-  console.log("Servidor socket rodando em http://localhost:3001");
+  console.log("Servidor socket rodando na porta 3001");
 });
