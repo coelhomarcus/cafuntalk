@@ -68,7 +68,11 @@ const Conversation = ({ messages, userName }: TConversation) => {
                 }`}
               >
                 {isImage ? (
-                  <img src={m.text} alt="img" className="rounded-lg max-w-xs" />
+                  <img
+                    src={m.text}
+                    alt="img"
+                    className="rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md h-auto object-contain"
+                  />
                 ) : code ? (
                   <SyntaxHighlighter
                     language={lang}
