@@ -8,14 +8,44 @@ CafunTalk é um aplicativo de chat moderno, sem distrações e privado, sem hist
 
 ## 🚀 Funcionalidades
 
+- ✅ Sem login, apenas seu username
 - ✅ Criação de salas de bate-papo
 - ✅ Mensagens em tempo real
 - ✅ Interface responsiva e amigável
 - ✅ Imagens (Através de links)
 - ✅ Bloco de Codigo
 - ✅ Avatar Personalizado
-- ✅ Avatar Aleatorio
 - ✅ Mensagem de Entrada e Saida
+
+## 📚 Como usar?
+
+### **📤 Como enviar uma imagem?**
+
+- No momento, as imagens são enviadas por meio de links.
+- Exemplo de link de imagem: `https://cafuntalk.com/pfps/2.webp`
+- Basta enviar o link no chat, e ele será exibido como imagem automaticamente.
+- Você pode usar qualquer link direto para imagens, incluindo GIFs.
+- Esse mesmo tipo de link também pode ser usado para definir sua foto de perfil.
+
+### **🔒 Como criar um canal privado?**
+
+- Acesse o site no seguinte formato:
+- `https://cafuntalk.com/?nomesecreto`
+- Esse será o seu canal "secreto".
+- Depois, é só compartilhar o link com seus amigos — funciona como um grupo privado!
+
+### **🔗 Como mandar links?**
+
+- É simples! Basta colar o link na conversa.
+- Ele será detectado automaticamente e ficará clicável para seus amigos.
+
+### **💻 Como enviar blocos de código?**
+
+````
+```js
+console.log("Mande Assim");
+```
+````
 
 ## 🛠️ Tecnologias Utilizadas
 
