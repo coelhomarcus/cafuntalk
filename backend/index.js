@@ -20,32 +20,28 @@ const io = new Server(server, {
   cors: { origin: "https://cafuntalk.com" },
 });
 
-const roomUsersCount = {};
-const userRoomMap = {};
-let user = "";
+const users = new Map();
 
 io.on("connection", (socket) => {
   console.log("Usuário: ", socket.id, " conectou!");
 
   socket.on("joinRoom", (room, userName) => {
     socket.join(room);
-    user = userName;
-    userRoomMap[socket.id] = room;
 
-    if (!roomUsersCount[room]) {
-      roomUsersCount[room] = 0;
-    }
-    roomUsersCount[room]++;
-
-    io.to(room).emit("userCount", roomUsersCount[room]);
+    users.set(socket.id, { userName, room });
 
     io.to(room).emit("message", {
       sender: "System",
-      text: `${user} joined the room.`,
+      text: `${userName} joined the room.`,
       room: room,
       avatarIndex: null,
       system: true,
     });
+
+    const count = Array.from(users.values()).filter(
+      (u) => u.room === room
+    ).length;
+    io.to(room).emit("userCount", count);
   });
 
   socket.on("message", (data) => {
@@ -54,21 +50,25 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    const room = userRoomMap[socket.id];
-    if (room) {
-      roomUsersCount[room] = Math.max((roomUsersCount[room] || 1) - 1, 0);
-
-      io.to(room).emit("userCount", roomUsersCount[room]);
+    const user = users.get(socket.id);
+    if (user) {
+      const { userName, room } = user;
 
       io.to(room).emit("message", {
         sender: "System",
-        text: `${user} left the room.`,
+        text: `${userName} left the room.`,
         room: room,
         avatarIndex: null,
         system: true,
       });
 
-      delete userRoomMap[socket.id];
+      users.delete(socket.id);
+
+      // Atualiza contagem
+      const count = Array.from(users.values()).filter(
+        (u) => u.room === room
+      ).length;
+      io.to(room).emit("userCount", count);
     }
     console.log("Usuário: ", socket.id, " desconectou!");
   });
