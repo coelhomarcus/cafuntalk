@@ -38,7 +38,7 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
                 <img
                   src={avatars[m.avatarIndex]}
                   alt={`Avatar de ${m.sender}`}
-                  className="w-12 h-12 rounded-full object-cover border border-borderColor"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-friend"
                 />
               </div>
             )}
@@ -71,7 +71,7 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
                     {code}
                   </SyntaxHighlighter>
                 ) : (
-                  <p className="text-xl font-message text-wrap break-words whitespace-pre-wrap">
+                  <p className="text-lg text-message font-message text-wrap break-words whitespace-pre-wrap">
                     {m.text}
                   </p>
                 )}
@@ -84,7 +84,7 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
                 <img
                   src={avatars[m.avatarIndex]}
                   alt={`Avatar de ${m.sender}`}
-                  className="w-12 h-12 rounded-full object-cover border border-borderColor"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-user"
                 />
               </div>
             )}
