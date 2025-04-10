@@ -10,10 +10,10 @@ import Conversation from "./components/Conversation";
 import MsgInput from "./components/MsgInput";
 
 //PROD
-// const socket = io("https://api.coelhomarcus.com:3001");
+const socket = io("https://api.cafuntalk.com:3001");
 
 // //DEV
-const socket = io("http://localhost:3001");
+// const socket = io("http://localhost:3001");
 
 const avatars = [
   "https://i.pinimg.com/736x/6c/74/10/6c74100c2039f9352bfc2bcbb766d813.jpg",

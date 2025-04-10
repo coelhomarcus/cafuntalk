@@ -5,11 +5,11 @@ import fs from "fs";
 
 // Certificados HTTPS
 const privateKey = fs.readFileSync(
-  "/etc/letsencrypt/live/api.coelhomarcus.com/privkey.pem",
+  "/etc/letsencrypt/live/api.cafuntalk.com/privkey.pem",
   "utf8"
 );
 const certificate = fs.readFileSync(
-  "/etc/letsencrypt/live/api.coelhomarcus.com/fullchain.pem",
+  "/etc/letsencrypt/live/api.cafuntalk.com/fullchain.pem",
   "utf8"
 );
 const credentials = { key: privateKey, cert: certificate };
@@ -17,7 +17,7 @@ const credentials = { key: privateKey, cert: certificate };
 const app = express();
 const server = createServer(credentials, app);
 const io = new Server(server, {
-  cors: { origin: "https://chat.coelhomarcus.com" },
+  cors: { origin: "https://cafuntalk.com" },
 });
 
 const roomUsersCount = {};
