@@ -6,7 +6,7 @@ import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import isImageUrl from "../utils/isImageUrl";
 import isCode from "../utils/isCode";
 
-const Conversation = ({ messages, userName, avatars }: TConversation) => {
+const Conversation = ({ messages, userName }: TConversation) => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,6 +24,8 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
           );
         }
 
+        const avatar = m.avatarUrl;
+
         const isMe = m.sender === userName;
         const isImage = isImageUrl(m.text);
         const [lang, code] = isCode(m.text) ?? ["", ""];
@@ -36,7 +38,7 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
             {!isMe && (
               <div className="flex-shrink-0 mr-2">
                 <img
-                  src={avatars[m.avatarIndex]}
+                  src={avatar}
                   alt={`Avatar de ${m.sender}`}
                   className="w-12 h-12 rounded-full object-cover border-2 border-friend"
                 />
@@ -82,7 +84,7 @@ const Conversation = ({ messages, userName, avatars }: TConversation) => {
             {isMe && (
               <div className="flex-shrink-0 ml-2">
                 <img
-                  src={avatars[m.avatarIndex]}
+                  src={avatar}
                   alt={`Avatar de ${m.sender}`}
                   className="w-12 h-12 rounded-full object-cover border-2 border-user"
                 />

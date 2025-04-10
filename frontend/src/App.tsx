@@ -1,8 +1,10 @@
 // Chat.tsx
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 import { useRoomName } from "../src/hooks/useRoomName";
+import { getRandomAvatar } from "./utils/avatarUtils";
+import { isValidImageUrl } from "../src/utils/avatarUtils";
 
 import Header from "./components/Header";
 import Welcome from "./components/Welcome";
@@ -14,16 +16,7 @@ import MsgInput from "./components/MsgInput";
 
 //DEV
 const socket = io("http://localhost:3001");
-
-const avatars = [
-  "https://i.pinimg.com/736x/6c/74/10/6c74100c2039f9352bfc2bcbb766d813.jpg",
-  "https://tr.rbxcdn.com/180DAY-596e34a607016d245c74aa2976662af6/420/420/Hat/Webp/noFilter",
-  "https://tr.rbxcdn.com/b26e419134c49a0f6c2bbfc24aaf9c8a/420/420/Hat/Png",
-  "https://tr.rbxcdn.com/180DAY-f98adbee32f29755aa3a0f09a35d71df/420/420/Hat/Png/noFilter",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Hnnmn8d6CCWP0eYNnRxZwl6GfkbO6hfwRg&s",
-];
-
-const index = Math.floor(Math.random() * (avatars.length - 1));
+const avatarRandomized = getRandomAvatar();
 
 export default function App() {
   const [localMsg, setLocalMsg] = useState("");
@@ -32,7 +25,7 @@ export default function App() {
   const [userName, setUserName] = useState<string | null>(null);
   const [userCount, setUserCount] = useState(0);
   const [isComposing, setIsComposing] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null!);
+  const [avatarUrl, setAvatarUrl] = useState<string>("");
   const room = useRoomName();
 
   //Join Room & Count
@@ -65,14 +58,17 @@ export default function App() {
     };
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!localMsg.trim()) return;
+
+    const isValid = await isValidImageUrl(avatarUrl);
+    const finalAvatar = isValid ? avatarUrl : avatarRandomized;
 
     socket.emit("message", {
       sender: userName,
       text: localMsg,
       room: room,
-      avatarIndex: index,
+      avatarUrl: finalAvatar,
     });
 
     setLocalMsg("");
@@ -95,10 +91,11 @@ export default function App() {
   if (!userName) {
     return (
       <Welcome
-        inputRef={inputRef}
         inputName={inputName}
         setInputName={setInputName}
         setUserName={setUserName}
+        avatarUrl={avatarUrl}
+        setAvatarUrl={setAvatarUrl}
       />
     );
   }
@@ -109,7 +106,7 @@ export default function App() {
       <Header online={userCount} />
 
       {/* Chat */}
-      <Conversation messages={messages} userName={userName} avatars={avatars} />
+      <Conversation messages={messages} userName={userName} />
 
       {/* Input */}
       <MsgInput
