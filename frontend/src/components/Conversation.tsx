@@ -5,6 +5,7 @@ import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import isImageUrl from "../utils/isImageUrl";
 import isCode from "../utils/isCode";
+import renderMessage from "../utils/renderMessage";
 
 const Conversation = ({ messages, userName }: TConversation) => {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -14,11 +15,14 @@ const Conversation = ({ messages, userName }: TConversation) => {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-borderColor scrollbar-track-bgColor p-4 space-y-3">
+    <div className="flex-1 overflow-y-scroll scrollbar-thin scrollbar-thumb-borderColor scrollbar-track-bgColor p-4 pr-3 space-y-3">
       {messages.map((m, i) => {
         if (m.system) {
           return (
-            <div key={i} className="text-center text-gray-500 italic">
+            <div
+              key={i}
+              className="text-center text-[13px] text-gray-500 italic"
+            >
               {m.text}
             </div>
           );
@@ -41,6 +45,9 @@ const Conversation = ({ messages, userName }: TConversation) => {
                   src={avatar}
                   alt={`Avatar de ${m.sender}`}
                   className="w-12 h-12 rounded-full object-cover border-2 border-friend"
+                  onLoad={() =>
+                    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+                  }
                 />
               </div>
             )}
@@ -54,10 +61,10 @@ const Conversation = ({ messages, userName }: TConversation) => {
                 {m.sender}
               </p>
               <div
-                className={`p-2 ${
+                className={`p-2 rounded-lg ${
                   isMe
-                    ? "bg-user text-[#3B1F00] rounded-lg rounded-tr-none"
-                    : "bg-friend text-[#1C1C1C] rounded-lg rounded-tl-none"
+                    ? "bg-user text-messageUser rounded-tr-none"
+                    : "bg-friend text-messageFriend rounded-tl-none"
                 }`}
               >
                 {isImage ? (
@@ -73,8 +80,8 @@ const Conversation = ({ messages, userName }: TConversation) => {
                     {code}
                   </SyntaxHighlighter>
                 ) : (
-                  <p className="text-lg text-message font-message text-wrap break-words whitespace-pre-wrap">
-                    {m.text}
+                  <p className="text-[15px] font-normal text-message font-message text-wrap break-words whitespace-pre-wrap">
+                    {renderMessage(m.text)}
                   </p>
                 )}
                 <div ref={bottomRef} />

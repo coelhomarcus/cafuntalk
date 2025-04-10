@@ -10,18 +10,18 @@ const Welcome = ({
   const room = useRoomName();
 
   return (
-    <div className="h-screen flex items-center justify-center bg-bgColor">
-      <div className="bg-transparent p-6 rounded-xl shadow-xl w-full max-w-sm border border-WelcomeBorder">
+    <div className="h-screen flex items-center justify-center bg-dock">
+      <div className="bg-bgColor p-6 rounded-xl shadow-xl w-full max-w-sm border border-WelcomeBorder">
         <h1 className="text-3xl font-medium text-title mb-4 text-center">
           <span className="text-user font-logo">Cafun</span>
-          <span className="text-friend font-logo">Talk</span>
+          <span className="text-user font-logo">Talk</span>
         </h1>
         <p className="text-desc mb-1 text-sm">A clean and simple chat space.</p>
         <p className="text-desc mb-1 text-sm">
           This chat doesn’t keep history — once you leave, messages are gone.
         </p>
         <p className="text-desc mb-1 text-sm">
-          Current room: <span className="text-friend">{room}</span>
+          Current room: <span className="text-user">{room}</span>
         </p>
         <p className="text-desc mb-4 text-sm">
           To switch rooms, just add{" "}
@@ -58,7 +58,7 @@ const Welcome = ({
           <button
             onClick={() => setUserName(inputName)}
             className="w-full bg-user
-              text-bgColor hover:font-medium px-4 py-2 rounded-lg 
+              text-WelcomeTextButton hover:font-medium px-4 py-2 rounded-lg 
               transition-all duration-300 cursor-pointer"
           >
             Let’s go →

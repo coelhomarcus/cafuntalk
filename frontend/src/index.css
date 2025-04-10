@@ -8,15 +8,23 @@
   --font-name: "Quicksand", sans-serif;
   --font-message: "Rubik", sans-serif;
 
-  --color-user: #aeea94;
-  --color-friend: #b771e5;
-  --color-message: #131313;
-  --color-bgColor: #131313;
+  --color-user: #5865f2;
+  --color-friend: #2f3136;
+  --color-messageUser: white;
+  --color-messageFriend: white;
+  --color-bgColor: #131316;
+
   --color-borderColor: #202020;
   --color-WelcomeBorder: #303030;
-  --color-bgInput: #191919;
+  --color-WelcomeTextButton: white;
   --color-textInput: #e5e7eb;
   --color-placeholder: #99a1af;
   --color-title: #f3f4f6;
   --color-desc: #99a1af;
+
+  --color-inputBG: #0f0f12;
+  --color-inputBorder: #2f3136;
+  --color-sendInput: #f2efe7;
+  --color-sendInputBG: #5865f2;
+  --color-dock: #0f0f12;
 }
