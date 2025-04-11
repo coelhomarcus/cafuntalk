@@ -22,7 +22,7 @@ CafunTalk é um aplicativo de chat moderno, sem distrações e privado, sem hist
 ### **📤 Como enviar uma imagem?**
 
 - No momento, as imagens são enviadas por meio de links.
-- Exemplo de link de imagem: `https://cafuntalk.com/pfps/2.webp`
+- Exemplo de link de imagem: `https://cafuntalk.com/pfps/2.jpeg`
 - Basta enviar o link no chat, e ele será exibido como imagem automaticamente.
 - Você pode usar qualquer link direto para imagens, incluindo GIFs.
 - Esse mesmo tipo de link também pode ser usado para definir sua foto de perfil.

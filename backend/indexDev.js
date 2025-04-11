@@ -9,7 +9,12 @@ const io = new Server(server, {
 });
 
 const users = new Map();
-const avatars = ["/pfps/1.webp", "/pfps/2.webp", "/pfps/3.webp"];
+const avatars = [
+  "/pfps/1.jpeg",
+  "/pfps/2.jpeg",
+  "/pfps/3.jpeg",
+  "/pfps/4.jpeg",
+];
 
 const getRandomAvatar = () => {
   const index = Math.floor(Math.random() * avatars.length);
