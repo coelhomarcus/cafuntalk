@@ -5,7 +5,8 @@
 # CafunTalk
 
 CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem historicos.
-- https://cafuntalk.com
+<a href="https://cafuntalk.com" target="_blank" rel="noopener noreferrer">Visite o site</a>
+
 
 ## 🚀 Funcionalidades
 
