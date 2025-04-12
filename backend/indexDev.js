@@ -86,6 +86,10 @@ server.listen(3001, () => {
 });
 
 async function isValidImageUrl(url) {
+  if (!url || url.trim() === "") {
+    return false;
+  }
+
   try {
     const res = await fetch(url, { method: "HEAD" });
     const contentType = res.headers.get("content-type") || "";
