@@ -86,15 +86,13 @@ export default function App() {
   };
 
   if (!userName) {
-    return (
-      <Welcome
-        inputName={inputName}
-        setInputName={setInputName}
-        setUserName={setUserName}
-        avatarUrl={avatarUrl}
-        setAvatarUrl={setAvatarUrl}
-      />
-    );
+    return <Welcome
+      inputName={inputName}
+      setInputName={setInputName}
+      setUserName={setUserName}
+      avatarUrl={avatarUrl}
+      setAvatarUrl={setAvatarUrl}
+    />;
   }
 
   return (
@@ -103,7 +101,10 @@ export default function App() {
       <Header online={userCount} />
 
       {/* Chat */}
-      <Conversation messages={messages} userName={userName} />
+      <Conversation
+        messages={messages}
+        userName={userName}
+      />
 
       {/* Input */}
       <MsgInput

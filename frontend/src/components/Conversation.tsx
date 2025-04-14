@@ -45,9 +45,6 @@ const Conversation = ({ messages, userName }: TConversation) => {
                   src={avatar}
                   alt={`Avatar de ${m.sender}`}
                   className="w-12 h-12 rounded-full object-cover border-2 border-friend"
-                  onLoad={() =>
-                    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
-                  }
                 />
               </div>
             )}
@@ -72,6 +69,9 @@ const Conversation = ({ messages, userName }: TConversation) => {
                     src={m.text}
                     alt="img"
                     className="rounded-lg w-full max-w-[200px] md:max-w-[300px] h-auto object-contain"
+                    onLoad={() =>
+                      bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+                    }
                   />
                 ) : code ? (
                   <SyntaxHighlighter

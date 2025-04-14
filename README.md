@@ -18,6 +18,7 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 - ✅ Bloco de Codigo
 - ✅ Avatar Personalizado
 - ✅ Mensagem de Entrada e Saida
+- ✅ Comandos com `/`
 
 ## 📚 Como usar?
 
@@ -41,6 +42,20 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 - É simples! Basta colar o link na conversa.
 - Ele será detectado automaticamente e ficará clicável para seus amigos.
 
+### **💻 Como usar os comandos?**
+
+- Comandos disponíveis:
+  - `/oi`
+  - `/oi2`
+  - `/danca`
+  - `/danca2`
+  - `/hm`
+  - `/cj`
+  - `/house`
+  - `/cansei`
+  - `/lendo`
+  - `/xerin`
+
 ### **💻 Como enviar blocos de código?**
 
 ````
@@ -57,7 +72,6 @@ console.log("Mande Assim");
 
 ## 💡 Passos Futuros
 
-- Adicionar comandos com `/` ou `!`
 - Melhorar componetização
 - Criar sistema de convites
 - Melhorar interface
