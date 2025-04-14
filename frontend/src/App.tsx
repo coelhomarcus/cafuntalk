@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 import { useRoomName } from "../src/hooks/useRoomName";
+import { commands } from "./utils/commands";
 
 import Header from "./components/Header";
 import Welcome from "./components/Welcome";
@@ -58,9 +59,11 @@ export default function App() {
   const sendMessage = async () => {
     if (!localMsg.trim()) return;
 
+    const msg = commands(localMsg);
+
     socket.emit("message", {
       sender: userName,
-      text: localMsg,
+      text: msg,
       room: room,
       avatarUrl: avatarUrl,
     });

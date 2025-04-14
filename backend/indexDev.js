@@ -47,12 +47,17 @@ io.on("connection", (socket) => {
   socket.on("message", async (data) => {
     console.log("Mensagem recebida:", data);
 
-    const isValid = await isValidImageUrl(data.avatarUrl);
-    const finalAvatar = isValid ? data.avatarUrl : randomAvatar;
+    let customAvatar;
+    if (data.avatarUrl == "marcus") {
+      customAvatar = "https://avatars.githubusercontent.com/u/106438089?v=4";
+    } else {
+      const isValid = await isValidImageUrl(data.avatarUrl);
+      customAvatar = isValid ? data.avatarUrl : randomAvatar;
+    }
 
     io.to(data.room).emit("message", {
       ...data,
-      avatarUrl: finalAvatar,
+      avatarUrl: customAvatar,
     });
   });
 
@@ -86,16 +91,22 @@ server.listen(3001, () => {
 });
 
 async function isValidImageUrl(url) {
-  if (!url || url.trim() === "") {
-    return false;
-  }
+  if (!url || url.trim() === "") return false;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
-    const res = await fetch(url, { method: "HEAD" });
+    const res = await fetch(url, {
+      method: "HEAD",
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
     const contentType = res.headers.get("content-type") || "";
     return res.ok && contentType.startsWith("image/");
   } catch (err) {
-    console.error("Erro ao validar imagem");
+    console.error("Erro ao validar imagem:", err.message || err);
     return false;
   }
 }

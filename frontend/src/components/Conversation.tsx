@@ -71,7 +71,7 @@ const Conversation = ({ messages, userName }: TConversation) => {
                   <img
                     src={m.text}
                     alt="img"
-                    className="rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md h-auto object-contain"
+                    className="rounded-lg w-full max-w-[200px] md:max-w-[300px] h-auto object-contain"
                   />
                 ) : code ? (
                   <SyntaxHighlighter

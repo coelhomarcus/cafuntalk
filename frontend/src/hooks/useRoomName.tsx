@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 
-export function useRoomName(defaultRoom = "general") {
+export function useRoomName(defaultRoom = "chat-geral") {
   const { search } = useLocation();
 
   const raw = search.slice(1);

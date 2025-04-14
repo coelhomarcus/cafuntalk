@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { IoSend } from "react-icons/io5";
 
@@ -19,6 +19,12 @@ const MsgInput = ({
     setRows(Math.min(lineCount, 4));
   }
 
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  }, []);
+
   return (
     <div className="bg-bgColor p-3">
       <div className="flex items-center gap-2">
@@ -34,9 +40,10 @@ const MsgInput = ({
                 setRows(1);
               }
             }}
+            ref={inputRef}
             onCompositionStart={() => setIsComposing(true)}
             onCompositionEnd={() => setIsComposing(false)}
-            placeholder="Type your message..."
+            placeholder="Digite sua mensagem..."
           />
         </div>
         <button
