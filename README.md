@@ -4,7 +4,9 @@
 
 # CafunTalk
 
-CafunTalk é um aplicativo de chat moderno, sem distrações e privado, sem historicos.
+CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem historicos.
+- https://cafuntalk.com
+
 
 ## 🚀 Funcionalidades
 
