@@ -30,6 +30,8 @@ function checkLang(match: string[]): string {
     sql: "sql",
     go: "go",
     golang: "go",
+    html: "html",
+    css: "css",
   };
 
   return langMap[match[1]] || "none";

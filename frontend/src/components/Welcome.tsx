@@ -1,4 +1,5 @@
 import { useRoomName } from "../hooks/useRoomName";
+import { ImBullhorn } from "react-icons/im";
 
 const Welcome = ({
   inputName,
@@ -10,9 +11,12 @@ const Welcome = ({
   const room = useRoomName();
 
   return (
-    <div className="h-screen flex items-center justify-center bg-dock">
-      <div className="bg-bgColor p-6 rounded-xl shadow-xl w-full max-w-sm border border-WelcomeBorder">
-        <h1 className="text-3xl font-medium text-title mb-4 text-center">
+    <div className="h-screen flex flex-col gap-10 items-center justify-center bg-dock ">
+      <div className="py-4 px-6 rounded-lg w-full max-w-sm border sm:border-neutral-800">
+        <div className="flex justify-center text-xl mb-3">
+          <ImBullhorn className="text-user" />
+        </div>
+        <h1 className="text-3xl font-medium mb-4 text-center">
           <span className="text-user font-logo">Cafun</span>
           <span className="text-user font-logo">Talk</span>
         </h1>
@@ -31,7 +35,7 @@ const Welcome = ({
         </p>
 
         <p className="text-textInput mb-2 text-sm">
-          Qual seu nickname? <span className="text-user italic">*</span>
+          Qual seu nickname? <span className="text-red-400">*</span>
         </p>
         <div className="space-y-4">
           <input
@@ -53,14 +57,17 @@ const Welcome = ({
           <button
             onClick={() => setUserName(inputName)}
             className="w-full bg-user
-              text-WelcomeTextButton hover:font-medium px-4 py-2 rounded-lg 
+              text-black hover:font-medium px-4 py-2 rounded-lg 
               transition-all duration-300 cursor-pointer"
           >
             Entrar →
           </button>
         </div>
       </div>
-    </div>
+      <div>
+        <a href="https://coelhomarcus.com" target="_blank" className="text-xs text-neutral-400 underline">@coelhomarcus</a>
+      </div>
+    </div >
   );
 };
 

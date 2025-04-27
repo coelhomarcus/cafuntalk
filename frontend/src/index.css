@@ -1,18 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Quicksand:wght@300..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap');
+
 @import "tailwindcss";
 @plugin 'tailwind-scrollbar';
 
 @theme {
-  --font-logo: "Rubik", sans-serif;
-  --font-name: "Quicksand", sans-serif;
-  --font-message: "Rubik", sans-serif;
+  --font-logo: "Geist Mono", sans-serif;
+  --font-name: "Geist Mono", sans-serif;
+  --font-message: "Geist", sans-serif;
 
-  --color-user: #5865f2;
+  --color-user: oklch(89.7% 0.196 126.665);
   --color-friend: #2f3136;
-  --color-messageUser: white;
+  --color-messageUser: oklch(27.4% 0.072 132.109);
   --color-messageFriend: white;
-  --color-bgColor: #131316;
+  --color-bgColor: #0a0a0a;
 
   --color-borderColor: #202020;
   --color-WelcomeBorder: #303030;
@@ -26,5 +28,5 @@
   --color-inputBorder: #2f3136;
   --color-sendInput: #f2efe7;
   --color-sendInputBG: #5865f2;
-  --color-dock: #0f0f12;
+  --color-dock: #0a0a0a;
 }

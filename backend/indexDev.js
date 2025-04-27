@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
 
     io.to(room).emit("message", {
       sender: "System",
-      text: `${userName} joined the room.`,
+      text: `${userName} entrou na sala.`,
       room: room,
       avatarIndex: null,
       system: true,
@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
 
       io.to(room).emit("message", {
         sender: "System",
-        text: `${userName} left the room.`,
+        text: `${userName} saiu da sala.`,
         room: room,
         avatarIndex: null,
         system: true,
