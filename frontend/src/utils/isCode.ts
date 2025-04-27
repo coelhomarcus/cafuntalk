@@ -3,7 +3,6 @@ export default function isCode(text: string): null | string[] {
 
   if (match) {
     const lang = checkLang(match);
-    console.log(lang, match[2]);
     return [lang, match[2]];
   }
 
