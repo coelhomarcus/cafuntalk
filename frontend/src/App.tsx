@@ -208,7 +208,7 @@ export default function App() {
     setLocalMsg("");
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+  const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (isComposing) return;
 
     if (e.key === "Enter") {
