@@ -12,38 +12,25 @@ export function commands(localMsg: string): [boolean, string] {
       isSystem: false,
       response: "https://media1.tenor.com/m/itoZJd9WL_4AAAAd/epico.gif",
     },
-    "/danca2": {
-      isSystem: false,
-      response: "https://media1.tenor.com/m/VWYSQ2ZGdDwAAAAd/osaka-dance.gif",
-    },
     "/hm": {
       isSystem: false,
       response: "https://media1.tenor.com/m/Gl8Km8aoBT0AAAAd/monkey-looking-sus-sus-monkey.gif",
     },
-    "/cj": {
-      isSystem: false,
-      response: "https://media1.tenor.com/m/OJ5PjAaKcdEAAAAC/minecraft-minecraft-movie.gif",
-    },
     "/house": {
       isSystem: false,
-      response: "https://i.pinimg.com/736x/60/a2/1f/60a21f6d5debf2eae7b39b84802b0d6f.jpg",
+      response: "https://media.tenor.com/Q8KG0-6aTU0AAAAM/house-md-dr-house.gif",
     },
-    "/cansei": {
-      isSystem: false,
-      response: "https://i.gifer.com/11th.gif",
-    },
-    "/lendo": {
-      isSystem: false,
-      response: "https://i.gifer.com/9Utr.gif",
-    },
-    "/xerin": {
+    "/beijo": {
       isSystem: false,
       response: "https://media.tenor.com/HRN4DnIh3AQAAAAj/kiss-love.gif",
     },
-    "/comandos": {
-      isSystem: true, // <- esse é do sistema!
-      response: "/oi /oi2 /danca /danca2 /hm /cj /house /cansei /lendo /xerin",
-    },
+  };
+
+  // Adiciona o comando /comandos dinamicamente
+  const allCommands = Object.keys(gifs).join(" ");
+  gifs["/comandos"] = {
+    isSystem: true,
+    response: allCommands,
   };
 
   if (localMsg in gifs) {

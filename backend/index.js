@@ -21,21 +21,9 @@ const io = new Server(server, {
 });
 
 const users = new Map();
-const avatars = [
-  "/pfps/1.jpeg",
-  "/pfps/2.jpeg",
-  "/pfps/3.jpeg",
-  "/pfps/4.jpeg",
-];
-
-const getRandomAvatar = () => {
-  const index = Math.floor(Math.random() * avatars.length);
-  return avatars[index];
-};
 
 io.on("connection", (socket) => {
   console.log("Usuário: ", socket.id, " conectou!");
-  const randomAvatar = getRandomAvatar();
 
   socket.on("joinRoom", (room, userName) => {
     socket.join(room);
@@ -59,12 +47,16 @@ io.on("connection", (socket) => {
   socket.on("message", async (data) => {
     console.log("Mensagem recebida:", data);
 
-    let customAvatar;
-    if (data.avatarUrl == "marcus") {
-      customAvatar = "https://avatars.githubusercontent.com/u/106438089?v=4";
-    } else {
+    const avatarMap = {
+      marcus: "https://avatars.githubusercontent.com/u/106438089?v=4",
+      vitoria: "https://i.pinimg.com/736x/90/43/58/904358a14809a275f0fe94c1f7efe69a.jpg",
+    };
+
+    let customAvatar = avatarMap[data.avatarUrl];
+
+    if (!customAvatar) {
       const isValid = await isValidImageUrl(data.avatarUrl);
-      customAvatar = isValid ? data.avatarUrl : randomAvatar;
+      customAvatar = isValid ? data.avatarUrl : "/pfps/1.webp";
     }
 
     io.to(data.room).emit("message", {
