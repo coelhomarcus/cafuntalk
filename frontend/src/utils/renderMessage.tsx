@@ -1,4 +1,4 @@
-export default function renderMessage(text: string) {
+export default function renderMessage(text: string, isMe: boolean) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const parts = text.split(urlRegex);
 
@@ -10,7 +10,7 @@ export default function renderMessage(text: string) {
           href={part}
           target="_blank"
           rel="noopener noreferrer"
-          className={`text-white underline break-all`}
+          className={`underline break-all font-name underline-offset-3 ${isMe ? 'text-blue-900' : 'text-blue-400'}`}
         >
           {part}
         </a>

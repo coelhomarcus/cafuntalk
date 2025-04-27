@@ -11,7 +11,7 @@ const Welcome = ({
 
   return (
     <div className="h-screen flex flex-col gap-10 items-center justify-center bg-dock ">
-      <div className="py-4 px-6 rounded-lg w-full max-w-sm border sm:border-neutral-800">
+      <div className="py-4 px-6 rounded-lg w-full max-w-sm sm:border sm:border-neutral-800">
         <div className="flex justify-center mb-3">
           <svg width="20" height="20" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_65_8)">

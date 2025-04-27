@@ -83,7 +83,7 @@ const Conversation = ({ messages, userName }: TConversation) => {
                       </SyntaxHighlighter>
                     ) : (
                       <p className="text-[15px] font-normal text-message font-message text-wrap break-words whitespace-pre-wrap">
-                        {renderMessage(m.text)}
+                        {renderMessage(m.text, isMe)}
                       </p>
                     )}
                     <div ref={bottomRef} />

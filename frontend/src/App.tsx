@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 
 import { useRoomName } from "../src/hooks/useRoomName";
@@ -9,11 +9,11 @@ import Welcome from "./components/Welcome";
 import Conversation from "./components/Conversation";
 import MsgInput from "./components/MsgInput";
 
-
 //PROD
 const socket: Socket = io("https://api.cafuntalk.com:3001");
 
 //DEV
+// const socket: Socket = io("http://192.168.1.2:3001");
 // const socket: Socket = io("http://localhost:3001");
 
 export default function App() {
@@ -32,6 +32,12 @@ export default function App() {
   const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(false);
   const pageTitle = useRef<string>(document.title);
 
+  // Controle de notificações
+  const lastNotificationTime = useRef<number>(0);
+  const notificationQueue = useRef<Message[]>([]);
+  const notificationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const NOTIFICATION_DELAY = 3000; // 3 segundos entre notificações
+
   useEffect(() => {
     if (userName && "Notification" in window) {
       if (Notification.permission === "granted") {
@@ -46,11 +52,84 @@ export default function App() {
     notificationSound.current = new Audio("/notification.mp3");
   }, [userName]);
 
+  // Função para processar a fila de notificações (usando useCallback para referência estável)
+  const processNotificationQueue = useCallback(() => {
+    if (notificationQueue.current.length === 0 || isWindowFocused) {
+      notificationTimeout.current = null;
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastNotificationTime.current >= NOTIFICATION_DELAY) {
+      const pendingMessages = notificationQueue.current;
+      notificationQueue.current = [];
+
+      // Se há mais de uma mensagem, agrupe-as
+      if (pendingMessages.length > 1) {
+        const senders = [...new Set(pendingMessages.map(msg => msg.sender))];
+
+        if (notificationSound.current) {
+          notificationSound.current.play().catch(e => console.log("Erro ao tocar som:", e));
+        }
+
+        if (notificationsEnabled) {
+          const notification = new Notification(
+            `${pendingMessages.length} novas mensagens`,
+            {
+              body: `De ${senders.join(", ")}`,
+              icon: "/logo.svg"
+            }
+          );
+
+          notification.onclick = () => {
+            window.focus();
+          };
+        }
+      } else if (pendingMessages.length === 1) {
+        // Apenas uma mensagem, mostrar normalmente
+        const message = pendingMessages[0];
+
+        if (notificationSound.current) {
+          notificationSound.current.play().catch(e => console.log("Erro ao tocar som:", e));
+        }
+
+        if (notificationsEnabled) {
+          const notification = new Notification(
+            `${message.sender}`,
+            {
+              body: message.text,
+              icon: message.avatarUrl || "/logo.svg"
+            }
+          );
+
+          notification.onclick = () => {
+            window.focus();
+          };
+        }
+      }
+
+      lastNotificationTime.current = now;
+    }
+
+    // Configurar o próximo processamento da fila
+    notificationTimeout.current = setTimeout(
+      processNotificationQueue,
+      NOTIFICATION_DELAY - (Date.now() - lastNotificationTime.current)
+    );
+  }, [isWindowFocused, notificationsEnabled]);
+
   useEffect(() => {
     const handleFocus = (): void => {
       setIsWindowFocused(true);
       setUnreadCount(0);
       document.title = pageTitle.current;
+
+      // Limpar fila de notificações quando a janela recebe foco
+      notificationQueue.current = [];
+      if (notificationTimeout.current) {
+        clearTimeout(notificationTimeout.current);
+        notificationTimeout.current = null;
+      }
     };
 
     const handleBlur = (): void => {
@@ -88,26 +167,19 @@ export default function App() {
     const handleMessage = (data: Message): void => {
       setMessages((prev) => [...prev, data]);
 
-
       if (data.sender !== userName && !data.system) {
-        if (notificationSound.current) {
-          notificationSound.current.play().catch(e => console.log("Erro ao tocar som:", e));
-        }
-
         if (!isWindowFocused) {
+          // Atualizar contador de não lidas e título
           const newCount = unreadCount + 1;
           setUnreadCount(newCount);
           document.title = `(${newCount}) ${pageTitle.current}`;
 
-          if (notificationsEnabled) {
-            const notification = new Notification(`Nova mensagem de ${data.sender}`, {
-              body: data.text,
-              icon: data.avatarUrl || "/favicon.ico"
-            });
+          // Adicionar à fila de notificações
+          notificationQueue.current.push(data);
 
-            notification.onclick = () => {
-              window.focus();
-            };
+          // Iniciar processamento da fila se não estiver em andamento
+          if (!notificationTimeout.current) {
+            notificationTimeout.current = setTimeout(processNotificationQueue, 0);
           }
         }
       }
@@ -118,7 +190,7 @@ export default function App() {
     return () => {
       socket.off("message", handleMessage);
     };
-  }, [userName, isWindowFocused, unreadCount, notificationsEnabled]);
+  }, [userName, isWindowFocused, unreadCount, processNotificationQueue]);
 
   const sendMessage = async (): Promise<void> => {
     if (!localMsg.trim()) return;
