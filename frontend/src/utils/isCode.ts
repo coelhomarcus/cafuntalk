@@ -13,7 +13,6 @@ export default function isCode(text: string): null | string[] {
 function checkLang(match: string[]): string {
   const langMap: Record<string, string> = {
     js: "javascript",
-    javascript: "javascript",
     jsx: "javascript",
     c: "c",
     csharp: "csharp",

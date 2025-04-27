@@ -1,7 +1,31 @@
 import { useEffect, useRef } from "react";
 
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
+
+import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
+import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
+import go from 'react-syntax-highlighter/dist/esm/languages/prism/go';
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
+import py from 'react-syntax-highlighter/dist/esm/languages/prism/python';
+import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
+import csharp from 'react-syntax-highlighter/dist/esm/languages/prism/csharp';
+import golang from 'react-syntax-highlighter/dist/esm/languages/prism/go';
+
+SyntaxHighlighter.registerLanguage('ts', ts);
+SyntaxHighlighter.registerLanguage('js', js);
+SyntaxHighlighter.registerLanguage('go', go);
+SyntaxHighlighter.registerLanguage('jsx', jsx);
+SyntaxHighlighter.registerLanguage('tsx', tsx);
+SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('json', json);
+SyntaxHighlighter.registerLanguage('py', py);
+SyntaxHighlighter.registerLanguage('c', c);
+SyntaxHighlighter.registerLanguage('csharp', csharp);
+SyntaxHighlighter.registerLanguage('go', golang);
 
 import isImageUrl from "../utils/isImageUrl";
 import isCode from "../utils/isCode";
@@ -124,7 +148,7 @@ const Conversation = ({ messages, userName }: TConversation) => {
                   ) : code ? (
                     <SyntaxHighlighter
                       language={lang}
-                      style={coldarkDark}
+                      style={nightOwl}
                       customStyle={{ margin: "0", fontSize: "0.9rem" }}
                       className="rounded"
                       wrapLines={true}
