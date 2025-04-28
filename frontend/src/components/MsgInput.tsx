@@ -4,9 +4,12 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import { IoSend } from "react-icons/io5"
-import { FaSpinner, FaLink, FaRegSmile } from "react-icons/fa"
+import { FaSpinner, FaLink } from "react-icons/fa"
 import { IoCloseSharp } from "react-icons/io5"
 import StickerPicker from "./StickerPicker"
+import { PiStickerFill } from "react-icons/pi";
+
+
 
 // Tipos
 interface TMsgInput {
@@ -169,9 +172,8 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
   return (
     <div className="bg-transparent p-3">
       {/* Área de input com botões */}
-      <div className="flex items-center gap-2">
-        {/* Botão de figurinhas - agora separado do campo de texto */}
-        <div ref={containerRef} className="relative">
+      <div className="flex items-center">
+        <div ref={containerRef} className="relative flex-1">
           {/* Seletor de figurinhas */}
           <StickerPicker
             isOpen={isStickerPickerOpen}
@@ -179,25 +181,25 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
             onStickerSelect={handleStickerSelect}
           />
 
-          <button
-            className="bg-bgColor text-placeholder hover:text-user font-medium py-4 px-4 rounded-lg border border-inputBorder transition-colors cursor-pointer hover:bg-inputBG"
-            onClick={toggleStickerPicker}
-            aria-label="Abrir seletor de figurinhas"
-          >
-            <FaRegSmile size={18} />
-          </button>
-        </div>
-
-        {/* Campo de entrada de texto */}
-        <div className="relative flex-1">
           {/* Preview de links como modal flutuante */}
           {previewUrl && (
             <LinkPreview url={previewUrl} onClose={closePreview} />
           )}
 
           <div className="flex items-center bg-bgColor border border-inputBorder rounded-lg">
+            {/* Botão de figurinhas dentro do input */}
+            <div className="pl-3">
+              <button
+                className="text-placeholder hover:text-user font-medium p-1 transition-colors cursor-pointer"
+                onClick={toggleStickerPicker}
+                aria-label="Abrir seletor de figurinhas"
+              >
+                <PiStickerFill className="text-xl" />
+              </button>
+            </div>
+
             {/* Input de mensagem */}
-            <div className="flex-1 py-2 px-3">
+            <div className="flex-1 py-2 px-2">
               <textarea
                 ref={textareaRef}
                 className="w-full resize-none bg-transparent outline-none text-textInput placeholder-placeholder scrollbar-thin scrollbar-thumb-user scrollbar-track-bgColor min-h-[24px] max-h-[150px] overflow-y-auto transition-height duration-100"
@@ -218,16 +220,18 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
                 rows={1}
               />
             </div>
+
+            {/* Botão de enviar dentro do input */}
+            <div className="pr-3">
+              <button
+                className="text-user font-medium p-1 transition-colors cursor-pointer hover:scale-110"
+                onClick={handleSendMessage}
+              >
+                <IoSend className="text-xl" />
+              </button>
+            </div>
           </div>
         </div>
-
-        {/* Botão de enviar */}
-        <button
-          className="bg-bgColor text-user font-medium py-4 px-4 rounded-lg border border-inputBorder transition-transform duration-200 cursor-pointer hover:*:scale-125"
-          onClick={handleSendMessage}
-        >
-          <IoSend />
-        </button>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 .GifPickerReact {
     /* Usando variáveis CSS do tema cafuntalk */
-    color-scheme: dark;
+    color-scheme: dark !important;
 
     --gpr-highlight-color: var(--color-user) !important;
     --gpr-hover-bg-color: var(--color-inputBG) !important;
@@ -17,24 +17,24 @@
 
     /* Search */
     --gpr-search-input-bg-color-active: var(--color-inputBG) !important;
-    --gpr-search-input-padding: 0 32px;
-    --gpr-search-input-border-radius: 8px;
-    --gpr-search-input-height: 40px;
+    --gpr-search-input-padding: 0 32px !important;
+    --gpr-search-input-border-radius: 8px !important;
+    --gpr-search-input-height: 40px !important;
     --gpr-search-input-text-color: var(--color-textInput) !important;
     --gpr-search-input-placeholder-color: var(--color-placeholder) !important;
     --gpr-search-bar-inner-padding: var(--gpr-horizontal-padding) !important;
     --gpr-search-border-color-active: var(--color-user) !important;
 
     /* Body */
-    --gpr-body-padding: var(--gpr-header-padding) 0px;
+    --gpr-body-padding: var(--gpr-header-padding) 0px !important;
     --gpr-category-list-padding: var(--gpr-horizontal-padding) !important;
-    --gpr-category-border-radius: 4px;
-    --gpr-category-background-opacity: 40%;
+    --gpr-category-border-radius: 4px !important;
+    --gpr-category-background-opacity: 40% !important;
     --gpr-category-font-color: var(--color-textInput) !important;
-    --gpr-category-font-size: 16px;
-    --gpr-category-font-weight: 600;
-    --gpr-category-shadow-opacity: 60%;
-    --gpr-category-shadow-opacity-hover: 65%;
+    --gpr-category-font-size: 16px !important;
+    --gpr-category-font-weight: 600 !important;
+    --gpr-category-shadow-opacity: 60% !important;
+    --gpr-category-shadow-opacity-hover: 65% !important;
     --gpr-category-border-color-hover: var(--color-user) !important;
 
     /* Placeholder */
@@ -46,7 +46,7 @@
 
 /* Reset das configurações base para dark theme */
 .GifPickerReact.gpr-dark-theme {
-    color-scheme: dark;
+    color-scheme: dark !important;
     --gpr-dark: var(--color-bgColor) !important;
     --gpr-hover-bg-color: var(--color-inputBG) !important;
     --gpr-focus-bg-color: var(--color-borderColor) !important;
@@ -60,7 +60,7 @@
 }
 
 .GifPickerReact * {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 .GifPickerReact.gpr-main {
@@ -68,13 +68,13 @@
     border-radius: var(--gpr-picker-border-radius) !important;
     border-style: solid !important;
     border-width: 1px !important;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
     background-color: var(--color-bgColor) !important;
     color: var(--color-textInput) !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease !important;
 }
 
 .GifPickerReact button.gpr-btn {
@@ -83,7 +83,7 @@
     background: none !important;
     outline: none !important;
     padding: 0 !important;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease !important;
 }
 
 .GifPickerReact button.gpr-btn:hover {
@@ -95,7 +95,7 @@
     background-color: var(--color-inputBG) !important;
     border: 1px solid var(--color-inputBorder) !important;
     color: var(--color-textInput) !important;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease !important;
 }
 
 .GifPickerReact .gpr-search-input:focus {
@@ -108,33 +108,51 @@
     color: var(--color-placeholder) !important;
 }
 
+/* Estilos de scrollbar personalizados para corresponder aos do Tailwind */
 .GifPickerReact .gpr-body {
     background-color: var(--color-bgColor) !important;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-borderColor) var(--color-bgColor);
+    /* Usando o mesmo padrão de scrollbar do resto do aplicativo */
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--color-borderColor) var(--color-bgColor) !important;
 }
 
+/* Estilização do scrollbar para Webkit (Chrome, Safari, etc) */
 .GifPickerReact .gpr-body::-webkit-scrollbar {
-    width: 6px;
+    width: 8px !important;
+    /* Corresponde ao tamanho 'thin' do tailwind-scrollbar */
 }
 
 .GifPickerReact .gpr-body::-webkit-scrollbar-track {
-    background: var(--color-bgColor);
+    background: var(--color-bgColor) !important;
 }
 
 .GifPickerReact .gpr-body::-webkit-scrollbar-thumb {
-    background-color: var(--color-borderColor);
-    border-radius: 6px;
-    border: 2px solid var(--color-bgColor);
+    background-color: var(--color-borderColor) !important;
+    border-radius: 20px !important;
+}
+
+/* Estilização para todos os elementos com scrollbar dentro do componente */
+.GifPickerReact *::-webkit-scrollbar {
+    width: 8px !important;
+    /* Corresponde ao tamanho 'thin' do tailwind-scrollbar */
+}
+
+.GifPickerReact *::-webkit-scrollbar-track {
+    background: var(--color-bgColor) !important;
+}
+
+.GifPickerReact *::-webkit-scrollbar-thumb {
+    background-color: var(--color-borderColor) !important;
+    border-radius: 20px !important;
 }
 
 .GifPickerReact .gpr-category-list-item {
-    transition: all 0.2s ease;
+    transition: all 0.2s ease !important;
 }
 
 .GifPickerReact .gpr-category-list-item:hover {
     background-color: var(--color-inputBG) !important;
-    transform: translateY(-2px);
+    transform: translateY(-2px) !important;
 }
 
 .GifPickerReact .gpr-attribution {

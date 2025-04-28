@@ -70,18 +70,17 @@ const Welcome = ({
 
   const generateRandomName = useCallback(() => {
     const adjectives = [
-      "Radiante", "Astuto", "Veloz", "Místico", "Magnífico", "Vibrante",
-      "Nobre", "Sereno", "Ágil", "Feroz"
+      "Veloz", "Nobre", "Ágil", "Feroz"
     ]
     const nouns = [
-      "Grifo", "Lince", "Falcão", "Dragão", "Pantera", "Cervo",
+      "Grifo", "Lince", "Falcão", "Dragão", "Cervo",
       "Fênix", "Lobo", "Corvo", "Tigre", "Coelho"
     ];
 
     const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
     const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
 
-    setInputName(`${randomAdj}${randomNoun}`);
+    setInputName(`${randomAdj} ${randomNoun}`);
   }, [setInputName]);
 
   const handleAvatarClick = useCallback((avatar: string) => {
@@ -277,7 +276,7 @@ const Welcome = ({
               value={inputName}
               onChange={(e) => setInputName(e.target.value)}
               className="w-full bg-inputBG border border-inputBorder px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50"
-              placeholder="Light Yagami"
+              placeholder="Marcus"
             />
             <button
               onClick={generateRandomName}
