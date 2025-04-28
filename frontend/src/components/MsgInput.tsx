@@ -47,7 +47,7 @@ const LinkPreview = ({ url, onClose }: LinkPreviewProps) => {
   if (loading) {
     return (
       <div className="p-2 border rounded mb-2 bg-bgColor border-inputBorder max-w-[32px] max-h-[32px]">
-        <p className="text-xs text-lime-500">
+        <p className="text-xs text-user">
           <FaSpinner className="animate-spin" />
         </p>
       </div>
@@ -57,7 +57,7 @@ const LinkPreview = ({ url, onClose }: LinkPreviewProps) => {
   return (
     <div className="p-2 rounded-lg mb-2 bg-bgColor border border-inputBorder relative max-w-fit">
       <button
-        className="absolute top-1 right-1 bg-bgColor text-white border border-lime-500 ring ring-lime-700 cursor-pointer rounded w-5 h-5 flex items-center justify-center text-sm"
+        className="absolute top-1 right-1 bg-bgColor text-textInput border border-user ring ring-user/50 cursor-pointer rounded w-5 h-5 flex items-center justify-center text-sm"
         onClick={onClose}
       >
         <IoCloseSharp />
@@ -71,10 +71,10 @@ const LinkPreview = ({ url, onClose }: LinkPreviewProps) => {
         <div className="flex items-center">
           <div className="bg-bgColor p-2 rounded mr-2">
             <span className="text-xs">
-              <FaLink className="text-white" />
+              <FaLink className="text-textInput" />
             </span>
           </div>
-          <p className="text-xs text-white truncate">{url}</p>
+          <p className="text-xs text-textInput truncate">{url}</p>
         </div>
       )}
     </div>
@@ -166,7 +166,7 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
           />
         </div>
         <button
-          className="bg-bgColor text-user font-medium py-4 px-4 rounded-lg border border-inputBorder hover:bg-bgColor hover:text-user hover:border-user transition-all duration-200 cursor-pointer hover:*:scale-130"
+          className="bg-sendInputBG text-sendInput font-medium py-4 px-4 rounded-lg border border-sendInputBG hover:bg-sendInputBG/80 hover:text-sendInput transition-all duration-200 cursor-pointer hover:*:scale-130"
           onClick={handleSendMessage}
         >
           <IoSend className="duration-300 transition-all" />

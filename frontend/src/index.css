@@ -5,7 +5,8 @@
 @import "tailwindcss";
 @plugin 'tailwind-scrollbar';
 
-@theme {
+/* Tema padrão (cafuntalk) */
+:root {
   --font-logo: "Geist Mono", sans-serif;
   --font-name: "Geist Mono", sans-serif;
   --font-message: "Geist", sans-serif;
@@ -26,7 +27,112 @@
 
   --color-inputBG: #0f0f12;
   --color-inputBorder: #2f3136;
-  --color-sendInput: #f2efe7;
-  --color-sendInputBG: #5865f2;
+  --color-sendInput: #0f0f12;
+  --color-sendInputBG: oklch(89.7% 0.196 126.665);
   --color-dock: #0a0a0a;
+
+  /* New standardized colors */
+  --color-shadowColor: #000000;
+  --color-textInputFaded: #99a1af;
+  /* Faded version of textInput for secondary text */
+}
+
+/* Tema café */
+[data-theme="coffee"] {
+  --color-user: #d2a679;
+  --color-friend: #533e2d;
+  --color-messageUser: #f5e6d5;
+  --color-messageFriend: #f5e6d5;
+  --color-bgColor: #352315;
+
+  --color-borderColor: #4a3626;
+  --color-WelcomeBorder: #5f4835;
+  --color-WelcomeTextButton: #f5e6d5;
+  --color-textInput: #f5e6d5;
+  --color-placeholder: #b69f84;
+  --color-title: #f5e6d5;
+  --color-desc: #b69f84;
+
+  --color-inputBG: #2c1e12;
+  --color-inputBorder: #5f4835;
+  --color-sendInput: #f5e6d5;
+  --color-sendInputBG: #6b503d;
+  --color-dock: #2a1c10;
+
+  /* New standardized colors */
+  --color-shadowColor: #211308;
+  --color-textInputFaded: #b69f84;
+  /* Faded version of textInput for secondary text */
+}
+
+/* Tema natureza */
+[data-theme="nature"] {
+  --color-user: #4caf50;
+  /* Verde vibrante */
+  --color-friend: #2c5a2e;
+  /* Verde escuro */
+  --color-messageUser: #f1f8e9;
+  /* Verde claro pálido */
+  --color-messageFriend: #f9fbe7;
+  /* Verde amarelado claro */
+  --color-bgColor: #1b3c1e;
+  /* Verde floresta escuro */
+
+  --color-borderColor: #33691e;
+  /* Verde oliveira */
+  --color-WelcomeBorder: #558b2f;
+  /* Verde folha */
+  --color-WelcomeTextButton: #e8f5e9;
+  /* Verde menta claro */
+  --color-textInput: #dcedc8;
+  /* Verde claro */
+  --color-placeholder: #aed581;
+  /* Verde médio claro */
+  --color-title: #f1f8e9;
+  /* Verde claro pálido */
+  --color-desc: #c5e1a5;
+  /* Verde pálido médio */
+
+  --color-inputBG: #1b3c1e;
+  /* Verde floresta escuro */
+  --color-inputBorder: #388e3c;
+  /* Verde folha médio */
+  --color-sendInput: #ffffff;
+  /* Branco */
+  --color-sendInputBG: #43a047;
+  /* Verde forte */
+  --color-dock: #1b3c1e;
+  /* Verde floresta escuro */
+
+  /* New standardized colors */
+  --color-shadowColor: #1b5e20;
+  /* Verde escuro */
+  --color-textInputFaded: #a5d6a7;
+  /* Verde claro médio */
+}
+
+@theme {
+  --font-logo: var(--font-logo);
+  --font-name: var(--font-name);
+  --font-message: var(--font-message);
+
+  --color-user: var(--color-user);
+  --color-friend: var(--color-friend);
+  --color-messageUser: var(--color-messageUser);
+  --color-messageFriend: var(--color-messageFriend);
+  --color-bgColor: var(--color-bgColor);
+
+  --color-borderColor: var(--color-borderColor);
+  --color-WelcomeBorder: var(--color-WelcomeBorder);
+  --color-WelcomeTextButton: var(--color-WelcomeTextButton);
+  --color-textInput: var(--color-textInput);
+  --color-placeholder: var(--color-placeholder);
+  --color-title: var(--color-title);
+  --color-desc: var(--color-desc);
+
+  --color-inputBG: var(--color-inputBG);
+  --color-inputBorder: var(--color-inputBorder);
+  --color-sendInput: var(--color-sendInput);
+  --color-sendInputBG: var(--color-sendInputBG);
+  --color-dock: var(--color-dock);
 }

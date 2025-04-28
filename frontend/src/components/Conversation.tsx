@@ -57,7 +57,7 @@ const Conversation = ({ messages, userName }: TConversation) => {
           return (
             <div
               key={i}
-              className="text-center text-[13px] text-gray-500 italic my-3"
+              className="text-center text-[13px] text-desc italic my-3"
             >
               {m.text}
             </div>

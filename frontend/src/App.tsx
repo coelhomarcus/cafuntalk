@@ -3,6 +3,7 @@ import { io, Socket } from "socket.io-client";
 
 import { useRoomName } from "../src/hooks/useRoomName";
 import { commands } from "./utils/commands";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 import Header from "./components/Header";
 import Welcome from "./components/Welcome";
@@ -226,35 +227,38 @@ export default function App() {
     }
   };
 
-  if (!userName) {
-    return <Welcome
-      inputName={inputName}
-      setInputName={setInputName}
-      setUserName={setUserName}
-      avatarUrl={avatarUrl}
-      setAvatarUrl={setAvatarUrl}
-    />;
-  }
-
+  // Envolver tudo em ThemeProvider para fornecer contexto de tema para todos os componentes
   return (
-    <div className="flex flex-col h-[100dvh] bg-bgColor">
-      {/* Header */}
-      <Header online={userCount} />
+    <ThemeProvider>
+      {!userName ? (
+        <Welcome
+          inputName={inputName}
+          setInputName={setInputName}
+          setUserName={setUserName}
+          avatarUrl={avatarUrl}
+          setAvatarUrl={setAvatarUrl}
+        />
+      ) : (
+        <div className="flex flex-col h-[100dvh] bg-bgColor">
+          {/* Header com o seletor de tema */}
+          <Header online={userCount} />
 
-      {/* Chat */}
-      <Conversation
-        messages={messages}
-        userName={userName}
-      />
+          {/* Chat */}
+          <Conversation
+            messages={messages}
+            userName={userName}
+          />
 
-      {/* Input */}
-      <MsgInput
-        localMsg={localMsg}
-        setLocalMsg={setLocalMsg}
-        handleKeyDown={handleKeyDown}
-        setIsComposing={setIsComposing}
-        sendMessage={sendMessage}
-      />
-    </div>
+          {/* Input */}
+          <MsgInput
+            localMsg={localMsg}
+            setLocalMsg={setLocalMsg}
+            handleKeyDown={handleKeyDown}
+            setIsComposing={setIsComposing}
+            sendMessage={sendMessage}
+          />
+        </div>
+      )}
+    </ThemeProvider>
   );
 }

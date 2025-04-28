@@ -147,13 +147,13 @@ const Welcome = ({
     const displayImageUrl = validatedUrl || defaultAvatar;
 
     return (
-      <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div className="bg-bgColor border border-neutral-700 rounded-lg p-6 max-w-md w-full">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+        <div className="bg-bgColor border border-WelcomeBorder rounded-lg p-6 max-w-md w-full">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-textInput text-lg font-medium">Selecione uma imagem de perfil</h2>
             <button
               onClick={() => setShowModal(false)}
-              className="text-gray-400 hover:text-white"
+              className="text-desc hover:text-textInput"
             >
               ✕
             </button>
@@ -161,7 +161,7 @@ const Welcome = ({
 
           {/* Preview da imagem dentro do modal - sempre visível */}
           <div className="flex justify-center mb-4">
-            <div className="w-24 h-24 rounded-lg overflow-hidden border border-neutral-700 relative">
+            <div className="w-24 h-24 rounded-lg overflow-hidden border border-WelcomeBorder relative">
               <img
                 src={displayImageUrl}
                 alt="Preview da imagem"
@@ -181,12 +181,12 @@ const Welcome = ({
           <div className="mb-4">
             <p className="text-textInput mb-2 text-sm">
               URL da imagem de perfil{" "}
-              <span className="text-white/50 text-xs">(opcional)</span>
+              <span className="text-textInput/50 text-xs">(opcional)</span>
             </p>
             <input
               value={tempAvatarUrl}
               onChange={handleInputChange}
-              className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50 mb-2"
+              className="w-full bg-inputBG border border-inputBorder px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50 mb-2"
               placeholder="cole a url da imagem aqui"
             />
           </div>
@@ -199,7 +199,7 @@ const Welcome = ({
               <div
                 key={index}
                 onClick={() => handleAvatarClick(avatar)}
-                className={`cursor-pointer p-2 rounded-lg border ${tempAvatarUrl === avatar ? 'border-user' : 'border-neutral-700'
+                className={`cursor-pointer p-2 rounded-lg border ${tempAvatarUrl === avatar ? 'border-user' : 'border-WelcomeBorder'
                   } hover:border-user transition-all`}
               >
                 <div className="aspect-square w-full overflow-hidden rounded-lg">
@@ -216,7 +216,7 @@ const Welcome = ({
           <div className="flex justify-end">
             <button
               onClick={saveAvatar}
-              className="bg-user text-black px-4 py-2 rounded-lg hover:font-medium transition-all"
+              className="bg-sendInputBG text-sendInput px-4 py-2 rounded-lg hover:font-medium transition-all"
             >
               Salvar
             </button>
@@ -231,11 +231,11 @@ const Welcome = ({
       {/* Modal para seleção de avatar */}
       {modalContent}
 
-      <div className="py-4 px-6 rounded-lg w-full max-w-sm sm:border sm:border-neutral-800">
+      <div className="py-4 px-6 rounded-lg w-full max-w-sm sm:border sm:border-WelcomeBorder">
         <div className="flex justify-center mb-3">
           <svg width="20" height="20" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_65_8)">
-              <path d="M400 167.675C400 89.2 377.025 25.5 348.65 25C348.775 25 348.875 25 349 25H316.6C316.6 25 240.5 82.175 130.975 104.6C127.625 122.3 125.5 143.375 125.5 167.675C125.5 191.975 127.625 213.075 130.975 230.75C240.525 253.175 316.6 310.35 316.6 310.35H349C348.875 310.35 348.775 310.35 348.65 310.325C377.05 309.825 400 246.175 400 167.675ZM337.825 288.775C334.15 288.775 330.2 284.975 328.15 282.7C323.225 277.2 318.475 268.65 314.4 257.975C305.325 234.05 300.3 202 300.3 167.7C300.3 133.4 305.3 101.325 314.4 77.425C318.45 66.725 323.225 58.175 328.15 52.675C330.175 50.4 334.15 46.6 337.825 46.6C341.5 46.6 345.45 50.4 347.5 52.675C352.425 58.175 357.175 66.725 361.25 77.425C370.325 101.35 375.35 133.4 375.35 167.7C375.35 202 370.35 234.075 361.25 257.975C357.2 268.675 352.425 277.225 347.5 282.7C345.475 284.975 341.5 288.775 337.825 288.775ZM98.375 167.675C98.375 147.375 99.875 127.675 102.7 109.425C84.2 111.975 67.95 113.45 47.875 113.45C21.675 113.45 21.675 113.45 21.675 113.45L0 150.425V184.875L21.675 221.85C21.675 221.85 21.675 221.85 47.875 221.85C67.95 221.85 84.2 223.325 102.7 225.875C99.875 207.65 98.375 187.925 98.375 167.625V167.675ZM143.8 250.85L93.8 241.275L125.775 366.875C127.425 373.375 133.875 376.65 140.1 374.15L186.4 355.625C192.625 353.125 195.125 346.275 191.95 340.35L143.8 250.825V250.85Z" fill="#BBF451" />
+              <path d="M400 167.675C400 89.2 377.025 25.5 348.65 25C348.775 25 348.875 25 349 25H316.6C316.6 25 240.5 82.175 130.975 104.6C127.625 122.3 125.5 143.375 125.5 167.675C125.5 191.975 127.625 213.075 130.975 230.75C240.525 253.175 316.6 310.35 316.6 310.35H349C348.875 310.35 348.775 310.35 348.65 310.325C377.05 309.825 400 246.175 400 167.675ZM337.825 288.775C334.15 288.775 330.2 284.975 328.15 282.7C323.225 277.2 318.475 268.65 314.4 257.975C305.325 234.05 300.3 202 300.3 167.7C300.3 133.4 305.3 101.325 314.4 77.425C318.45 66.725 323.225 58.175 328.15 52.675C330.175 50.4 334.15 46.6 337.825 46.6C341.5 46.6 345.45 50.4 347.5 52.675C352.425 58.175 357.175 66.725 361.25 77.425C370.325 101.35 375.35 133.4 375.35 167.7C375.35 202 370.35 234.075 361.25 257.975C357.2 268.675 352.425 277.225 347.5 282.7C345.475 284.975 341.5 288.775 337.825 288.775ZM98.375 167.675C98.375 147.375 99.875 127.675 102.7 109.425C84.2 111.975 67.95 113.45 47.875 113.45C21.675 113.45 21.675 113.45 21.675 113.45L0 150.425V184.875L21.675 221.85C21.675 221.85 21.675 221.85 47.875 221.85C67.95 221.85 84.2 223.325 102.7 225.875C99.875 207.65 98.375 187.925 98.375 167.625V167.675ZM143.8 250.85L93.8 241.275L125.775 366.875C127.425 373.375 133.875 376.65 140.1 374.15L186.4 355.625C192.625 353.125 195.125 346.275 191.95 340.35L143.8 250.825V250.85Z" className="fill-user" />
             </g>
             <defs>
               <clipPath id="clip0_65_8">
@@ -270,12 +270,12 @@ const Welcome = ({
             <input
               value={inputName}
               onChange={(e) => setInputName(e.target.value)}
-              className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg focus:outline-none 1 text-textInput placeholder-placeholder/50"
+              className="w-full bg-inputBG border border-inputBorder px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50"
               placeholder="Light Yagami"
             />
             <button
               onClick={generateRandomName}
-              className="bg-bgColor border border-WelcomeBorder px-2 py-2 rounded-lg text-textInput hover:bg-gray-700/20 transition-all cursor-pointer"
+              className="bg-inputBG border border-inputBorder px-2 py-2 rounded-lg text-textInput hover:bg-inputBG/80 transition-all cursor-pointer"
               title="Gerar nome aleatório"
             >
               <FaRandom className="text-user" />
@@ -285,13 +285,13 @@ const Welcome = ({
           <div className="space-y-2">
             <p className="text-textInput mb-2 text-sm">
               Imagem de Perfil{" "}
-              <span className="text-white/50 text-xs">(opcional)</span>
+              <span className="text-textInput/50 text-xs">(opcional)</span>
             </p>
 
             {/* Mostra miniatura da imagem escolhida */}
             {avatarUrl && (
               <div className="flex justify-center mb-2">
-                <div className="w-16 h-16 rounded-lg overflow-hidden border border-neutral-700">
+                <div className="w-16 h-16 rounded-lg overflow-hidden border border-WelcomeBorder">
                   <img
                     src={avatarUrl}
                     alt="Avatar"
@@ -303,7 +303,7 @@ const Welcome = ({
 
             <button
               onClick={openAvatarModal}
-              className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg text-textInput hover:bg-gray-700/20 cursor-pointer transition-all flex items-center justify-center gap-2"
+              className="w-full bg-inputBG border border-inputBorder px-4 py-2 rounded-lg text-textInput hover:bg-inputBG/80 cursor-pointer transition-all flex items-center justify-center gap-2"
             >
               <span className="text-lg"><FaImage /></span> {avatarUrl ? "Alterar imagem de perfil" : "Escolher imagem de perfil"}
             </button>
@@ -312,8 +312,8 @@ const Welcome = ({
           <button
             onClick={() => inputName.trim() ? setUserName(inputName) : null}
             className={`w-full ${inputName.trim()
-              ? "bg-user text-black hover:font-medium cursor-pointer"
-              : "bg-lime-900/70 text-lime-300/60 cursor-not-allowed"} 
+              ? "bg-sendInputBG text-sendInput hover:font-medium cursor-pointer"
+              : "bg-sendInputBG/30 text-sendInput/40 cursor-not-allowed"} 
               px-4 py-2 rounded-lg 
               transition-all duration-300`}
             disabled={!inputName.trim()}
@@ -323,7 +323,7 @@ const Welcome = ({
         </div>
       </div>
       <div>
-        <a href="https://coelhomarcus.com" target="_blank" className="text-xs text-neutral-400 underline">@coelhomarcus</a>
+        <a href="https://coelhomarcus.com" target="_blank" className="text-xs text-desc underline">@coelhomarcus</a>
       </div>
     </div >
   );
