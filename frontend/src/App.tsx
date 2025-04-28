@@ -77,7 +77,7 @@ export default function App() {
             `${pendingMessages.length} novas mensagens`,
             {
               body: `De ${senders.join(", ")}`,
-              icon: "/logo.svg"
+              icon: "/icons/logo.svg"
             }
           );
 
@@ -98,7 +98,7 @@ export default function App() {
             `${message.sender}`,
             {
               body: message.text,
-              icon: message.avatarUrl || "/logo.svg"
+              icon: message.avatarUrl || "/icons/logo.svg"
             }
           );
 
