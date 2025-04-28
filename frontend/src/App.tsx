@@ -10,10 +10,10 @@ import Conversation from "./components/Conversation";
 import MsgInput from "./components/MsgInput";
 
 //PROD
-const socket: Socket = io("https://api.cafuntalk.com:3001");
+// const socket: Socket = io("https://api.cafuntalk.com:3001");
 
 //DEV
-// const socket: Socket = io("http://192.168.1.2:3001");
+const socket: Socket = io("http://192.168.1.2:3001");
 // const socket: Socket = io("http://localhost:3001");
 
 export default function App() {
@@ -197,12 +197,16 @@ export default function App() {
 
     const [isSystem, message] = commands(localMsg);
 
+    // Usar o avatar padrão se nenhum foi selecionado
+    const defaultAvatar = "/pfps/1.webp";
+    const finalAvatarUrl = avatarUrl || defaultAvatar;
+
     socket.emit("message", {
       system: isSystem,
       sender: userName,
       text: message,
       room: room,
-      avatarUrl: avatarUrl,
+      avatarUrl: finalAvatarUrl,
     });
 
     setLocalMsg("");

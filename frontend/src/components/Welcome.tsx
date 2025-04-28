@@ -1,4 +1,8 @@
 import { useRoomName } from "../hooks/useRoomName";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { FaRandom } from "react-icons/fa";
+import { FaImage } from "react-icons/fa";
+import isImageUrl from "../utils/isImageUrl";
 
 const Welcome = ({
   inputName,
@@ -8,9 +12,225 @@ const Welcome = ({
   setAvatarUrl,
 }: TWelcome) => {
   const room = useRoomName();
+  const [showModal, setShowModal] = useState(false);
+  const [tempAvatarUrl, setTempAvatarUrl] = useState(avatarUrl);
+  const [imageError, setImageError] = useState(false);
+  const [validatedUrl, setValidatedUrl] = useState<string | null>(null);
+  const debounceTimerRef = useRef<number | null>(null);
+
+  // Lista de avatares disponíveis em useMemo para evitar recriação a cada renderização
+  const availableAvatars = useMemo(() => [
+    "/pfps/1.webp",
+    "https://avatars.githubusercontent.com/u/106438089?v=4",
+    "https://i.pinimg.com/736x/90/43/58/904358a14809a275f0fe94c1f7efe69a.jpg",
+    "https://i.pinimg.com/736x/42/4a/cc/424acce14cb9b9c3b479609aae3ca75d.jpg",
+    "https://i.pinimg.com/736x/25/4c/7d/254c7d3e4737995ddd5292a3450f70ca.jpg",
+    "https://i.pinimg.com/736x/14/8d/bc/148dbc3f26f601cdc13995ba435d8531.jpg",
+  ], []);
+
+  // Imagem padrão quando nenhuma estiver selecionada
+  const defaultAvatar = "/pfps/1.webp";
+
+  // Verifica se a URL é uma das imagens predefinidas
+  const isPredefinedImage = useCallback((url: string) => {
+    return availableAvatars.includes(url);
+  }, [availableAvatars]);
+
+  // Função para verificar se uma URL é uma imagem válida
+  const validateImageUrl = useCallback((url: string) => {
+    // Se for uma das imagens predefinidas, é válida
+    if (isPredefinedImage(url)) {
+      setImageError(false);
+      setValidatedUrl(url);
+      return;
+    }
+
+    // Verifica primeiro se parece uma URL de imagem válida
+    if (!url.trim() || !isImageUrl(url)) {
+      setImageError(true);
+      setValidatedUrl(null);
+      return;
+    }
+
+    // Tenta carregar a imagem para verificar se é válida
+    const img = new Image();
+
+    img.onload = () => {
+      setImageError(false);
+      setValidatedUrl(url);
+    };
+
+    img.onerror = () => {
+      setImageError(true);
+      setValidatedUrl(null);
+    };
+
+    img.src = url;
+  }, [isPredefinedImage]);
+
+  const generateRandomName = useCallback(() => {
+    const adjectives = ["Alegre", "Brilhante", "Curioso", "Divertido", "Energético", "Fofo", "Genial", "Honesto", "Incrível", "Jovial"];
+    const nouns = ["Panda", "Lobo", "Gato", "Leão", "Tigre", "Cachorro", "Raposa", "Coruja", "Urso", "Coelho"];
+
+    const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+
+    setInputName(`${randomAdj}${randomNoun}`);
+  }, [setInputName]);
+
+  const handleAvatarClick = useCallback((avatar: string) => {
+    setTempAvatarUrl(avatar);
+    setImageError(false);
+  }, []);
+
+  const openAvatarModal = useCallback(() => {
+    setTempAvatarUrl(avatarUrl || defaultAvatar);
+    setImageError(false);
+    setShowModal(true);
+  }, [avatarUrl, defaultAvatar]);
+
+  const saveAvatar = useCallback(() => {
+    setAvatarUrl(tempAvatarUrl);
+    setShowModal(false);
+  }, [tempAvatarUrl, setAvatarUrl]);
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newUrl = e.target.value;
+    setTempAvatarUrl(newUrl);
+
+    // Limpa o timer de debounce anterior, se existir
+    if (debounceTimerRef.current) {
+      window.clearTimeout(debounceTimerRef.current);
+    }
+
+    // Só valida se o usuário digitou algo e depois de um pequeno delay
+    if (newUrl.trim()) {
+      // Configura um novo timer para validar a URL após 500ms de inatividade
+      debounceTimerRef.current = window.setTimeout(() => {
+        validateImageUrl(newUrl);
+      }, 500);
+    } else {
+      setImageError(false);
+      setValidatedUrl(null);
+    }
+  }, [validateImageUrl]);
+
+  // Limpa o timer de debounce quando o componente é desmontado
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        window.clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
+
+  // Quando o modal é aberto, valida a URL atual se não for uma predefinida
+  useEffect(() => {
+    if (showModal && tempAvatarUrl) {
+      // Verificamos se é uma URL predefinida
+      if (isPredefinedImage(tempAvatarUrl)) {
+        setImageError(false);
+        setValidatedUrl(tempAvatarUrl);
+      }
+      // Se não for uma URL predefinida e for uma URL válida, tentamos validar
+      else if (isImageUrl(tempAvatarUrl)) {
+        validateImageUrl(tempAvatarUrl);
+      }
+    }
+  }, [showModal, tempAvatarUrl, isPredefinedImage, validateImageUrl]);
+
+  // Memo para o conteúdo do modal para evitar recriação a cada renderização
+  const modalContent = useMemo(() => {
+    if (!showModal) return null;
+
+    // A URL da imagem a ser exibida é a validada ou a padrão
+    const displayImageUrl = validatedUrl || defaultAvatar;
+
+    return (
+      <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div className="bg-bgColor border border-neutral-700 rounded-lg p-6 max-w-md w-full">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-textInput text-lg font-medium">Selecione uma imagem de perfil</h2>
+            <button
+              onClick={() => setShowModal(false)}
+              className="text-gray-400 hover:text-white"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Preview da imagem dentro do modal - sempre visível */}
+          <div className="flex justify-center mb-4">
+            <div className="w-24 h-24 rounded-lg overflow-hidden border border-neutral-700 relative">
+              <img
+                src={displayImageUrl}
+                alt="Preview da imagem"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Mensagem de erro para URL inválida */}
+          {imageError && (
+            <p className="text-red-400 text-sm text-center mb-4">
+              URL de imagem inválida. Escolha outra URL ou selecione uma das opções abaixo.
+            </p>
+          )}
+
+          {/* Input de URL dentro do modal */}
+          <div className="mb-4">
+            <p className="text-textInput mb-2 text-sm">
+              URL da imagem de perfil{" "}
+              <span className="text-white/50 text-xs">(opcional)</span>
+            </p>
+            <input
+              value={tempAvatarUrl}
+              onChange={handleInputChange}
+              className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50 mb-2"
+              placeholder="cole a url da imagem aqui"
+            />
+          </div>
+
+          <p className="text-textInput mb-2 text-sm">
+            Ou escolha uma das opções abaixo:
+          </p>
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            {availableAvatars.map((avatar, index) => (
+              <div
+                key={index}
+                onClick={() => handleAvatarClick(avatar)}
+                className={`cursor-pointer p-2 rounded-lg border ${tempAvatarUrl === avatar ? 'border-user' : 'border-neutral-700'
+                  } hover:border-user transition-all`}
+              >
+                <div className="aspect-square w-full overflow-hidden rounded-lg">
+                  <img
+                    src={avatar}
+                    alt={`Avatar ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-end">
+            <button
+              onClick={saveAvatar}
+              className="bg-user text-black px-4 py-2 rounded-lg hover:font-medium transition-all"
+            >
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }, [showModal, imageError, validatedUrl, tempAvatarUrl, defaultAvatar, handleInputChange, availableAvatars, handleAvatarClick, saveAvatar]);
 
   return (
-    <div className="h-screen flex flex-col gap-10 items-center justify-center bg-dock ">
+    <div className="h-screen flex flex-col gap-10 items-center justify-center bg-dock">
+      {/* Modal para seleção de avatar */}
+      {modalContent}
+
       <div className="py-4 px-6 rounded-lg w-full max-w-sm sm:border sm:border-neutral-800">
         <div className="flex justify-center mb-3">
           <svg width="20" height="20" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,30 +263,60 @@ const Welcome = ({
         </p>
 
         <p className="text-textInput mb-2 text-sm">
-          Qual seu nickname? <span className="text-red-400">*</span>
+          Escolha seu nome <span className="text-red-400">*</span>
         </p>
         <div className="space-y-4">
-          <input
-            value={inputName}
-            onChange={(e) => setInputName(e.target.value)}
-            className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg focus:outline-none 1 text-textInput placeholder-placeholder/50"
-            placeholder="nickname"
-          />
-          <p className="text-textInput mb-2 text-sm">
-            Imagem de Perfil{" "}
-            <span className="text-white/50 italic">(opcional)</span>
-          </p>
-          <input
-            value={avatarUrl}
-            onChange={(e) => setAvatarUrl(e.target.value)}
-            className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg focus:outline-none 1 text-textInput placeholder-placeholder/50"
-            placeholder="url da imagem"
-          />
+          <div className="flex gap-2">
+            <input
+              value={inputName}
+              onChange={(e) => setInputName(e.target.value)}
+              className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg focus:outline-none 1 text-textInput placeholder-placeholder/50"
+              placeholder="Light Yagami"
+            />
+            <button
+              onClick={generateRandomName}
+              className="bg-bgColor border border-WelcomeBorder px-2 py-2 rounded-lg text-textInput hover:bg-gray-700/20 transition-all cursor-pointer"
+              title="Gerar nome aleatório"
+            >
+              <FaRandom className="text-user" />
+            </button>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-textInput mb-2 text-sm">
+              Imagem de Perfil{" "}
+              <span className="text-white/50 text-xs">(opcional)</span>
+            </p>
+
+            {/* Mostra miniatura da imagem escolhida */}
+            {avatarUrl && (
+              <div className="flex justify-center mb-2">
+                <div className="w-16 h-16 rounded-lg overflow-hidden border border-neutral-700">
+                  <img
+                    src={avatarUrl}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={openAvatarModal}
+              className="w-full bg-bgColor border border-WelcomeBorder px-4 py-2 rounded-lg text-textInput hover:bg-gray-700/20 cursor-pointer transition-all flex items-center justify-center gap-2"
+            >
+              <span className="text-lg"><FaImage /></span> {avatarUrl ? "Alterar imagem de perfil" : "Escolher imagem de perfil"}
+            </button>
+          </div>
+
           <button
-            onClick={() => setUserName(inputName)}
-            className="w-full bg-user
-              text-black hover:font-medium px-4 py-2 rounded-lg 
-              transition-all duration-300 cursor-pointer"
+            onClick={() => inputName.trim() ? setUserName(inputName) : null}
+            className={`w-full ${inputName.trim()
+              ? "bg-user text-black hover:font-medium cursor-pointer"
+              : "bg-lime-900/70 text-lime-300/60 cursor-not-allowed"} 
+              px-4 py-2 rounded-lg 
+              transition-all duration-300`}
+            disabled={!inputName.trim()}
           >
             Entrar →
           </button>

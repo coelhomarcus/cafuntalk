@@ -47,21 +47,10 @@ io.on("connection", (socket) => {
   socket.on("message", async (data) => {
     console.log("Mensagem recebida:", data);
 
-    const avatarMap = {
-      marcus: "https://avatars.githubusercontent.com/u/106438089?v=4",
-      vitoria: "https://i.pinimg.com/736x/90/43/58/904358a14809a275f0fe94c1f7efe69a.jpg",
-    };
-
-    let customAvatar = avatarMap[data.avatarUrl];
-
-    if (!customAvatar) {
-      const isValid = await isValidImageUrl(data.avatarUrl);
-      customAvatar = isValid ? data.avatarUrl : "/pfps/1.webp";
-    }
-
+    // Retransmite a mensagem com o avatarUrl enviado pelo frontend
+    // O frontend já cuidou da validação e definição do avatar padrão
     io.to(data.room).emit("message", {
-      ...data,
-      avatarUrl: customAvatar,
+      ...data
     });
   });
 
@@ -93,24 +82,3 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
   console.log("Servidor socket rodando na porta 3001");
 });
-
-async function isValidImageUrl(url) {
-  if (!url || url.trim() === "") return false;
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
-
-  try {
-    const res = await fetch(url, {
-      method: "HEAD",
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-
-    const contentType = res.headers.get("content-type") || "";
-    return res.ok && contentType.startsWith("image/");
-  } catch (err) {
-    console.error("Erro ao validar imagem:", err.message || err);
-    return false;
-  }
-}
