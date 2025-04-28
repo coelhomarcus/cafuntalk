@@ -193,10 +193,13 @@ export default function App() {
     };
   }, [userName, isWindowFocused, unreadCount, processNotificationQueue]);
 
-  const sendMessage = async (): Promise<void> => {
-    if (!localMsg.trim()) return;
+  const sendMessage = async (directMessage?: string): Promise<void> => {
+    // Usar a mensagem direta (figurinha) se fornecida, caso contrário usar o texto do input
+    const msgToSend = directMessage || localMsg;
 
-    const [isSystem, message] = commands(localMsg);
+    if (!msgToSend.trim()) return;
+
+    const [isSystem, message] = commands(msgToSend);
 
     // Usar o avatar padrão se nenhum foi selecionado
     const defaultAvatar = "/pfps/1.webp";
@@ -210,7 +213,10 @@ export default function App() {
       avatarUrl: finalAvatarUrl,
     });
 
-    setLocalMsg("");
+    // Só limpar o campo de texto se não for uma mensagem direta (figurinha)
+    if (!directMessage) {
+      setLocalMsg("");
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
