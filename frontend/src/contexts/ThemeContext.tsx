@@ -20,12 +20,13 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const [theme, setTheme] = useState<ThemeType>(() => {
         const savedTheme = localStorage.getItem('cafuntalk-theme');
 
-        // Verifica se o tema salvo ainda é válido (não é 'midnight' que foi removido)
-        if (savedTheme === 'cafuntalk' || savedTheme === 'coffee' || savedTheme === 'nature') {
+        // Verifica se o tema salvo é válido
+        if (savedTheme === 'cafuntalk' || savedTheme === 'coffee' ||
+            savedTheme === 'nature' || savedTheme === 'cyberpunk') {
             return savedTheme as ThemeType;
         }
 
-        // Se o tema salvo for 'midnight' ou inválido, usa o padrão
+        // Se o tema salvo for inválido, usa o padrão
         return 'cafuntalk';
     });
 

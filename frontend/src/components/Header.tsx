@@ -40,18 +40,20 @@ const Header = ({ online = 0 }: HeaderProps) => {
           <span className="text-user font-logo font-semibold">CafunTalk</span>
         </button>
 
-        {/* Versão desktop: mostrar informações e tema diretamente */}
-        <div className="hidden md:flex items-center">
-          <div className="mr-3">
-            <p className="flex items-center justify-end gap-1 text-textInput/70 text-sm">
-              <FaHashtag className="text-user" />
-              <span>{room}</span>
-            </p>
-            <p className="flex items-center justify-end gap-1 text-textInput/70 text-sm">
-              <BsPeopleFill className="text-user" />
-              <span>{online}</span>
-            </p>
+        {/* Versão desktop: design minimalista */}
+        <div className="hidden md:flex items-center gap-4">
+          <div className="flex items-center text-textInput/80">
+            <div className="flex items-center mr-4">
+              <FaHashtag className="text-user text-sm mr-1.5" />
+              <span className="text-sm">{room}</span>
+            </div>
+
+            <div className="flex items-center">
+              <BsPeopleFill className="text-user text-sm mr-1.5" />
+              <span className="text-sm">{online}</span>
+            </div>
           </div>
+
           <ThemeSwitcher />
         </div>
 

@@ -37,11 +37,61 @@
   /* Faded version of textInput for secondary text */
 }
 
+/* Tema cyberpunk */
+[data-theme="cyberpunk"] {
+  --font-logo: "Geist Mono", sans-serif;
+  --font-name: "Geist Mono", sans-serif;
+  --font-message: "Geist", sans-serif;
+
+  --color-user: #00ff51;
+  /* Azul neon */
+  --color-friend: #ff007c;
+  /* Roxo escuro */
+  --color-messageUser: #000912;
+  /* Preto azulado */
+  --color-messageFriend: #ffffff;
+  /* Branco azulado */
+  --color-bgColor: #0f0e17;
+  /* Preto azulado profundo */
+
+  --color-borderColor: #3c2e91;
+  /* Roxo profundo */
+  --color-WelcomeBorder: #ff007c;
+  /* Roxo neon */
+  --color-WelcomeTextButton: #d1f7ff;
+  /* Branco azulado claro */
+  --color-textInput: #ffc400;
+  /* Branco azulado claro */
+  --color-placeholder: #ff007c;
+  /* Azul claro */
+  --color-title: #e2fcff;
+  /* Branco azulado claro */
+  --color-desc: #ffc400;
+  /* Azul claro */
+
+  --color-inputBG: #0a0e20;
+  /* Azul muito escuro */
+  --color-inputBorder: #3c2e91;
+  /* Roxo médio */
+  --color-sendInput: #000000;
+  /* Preto */
+  --color-sendInputBG: #ff007c;
+  /* Rosa neon */
+  --color-dock: #0a0e20;
+  /* Azul muito escuro */
+
+  /* Cores padronizadas adicionais */
+  --color-shadowColor: #000520;
+  /* Sombra azulada */
+  --color-textInputFaded: #7c8df7;
+  /* Azul claro */
+}
+
 /* Tema café */
 [data-theme="coffee"] {
   --color-user: #d2a679;
   --color-friend: #533e2d;
-  --color-messageUser: #f5e6d5;
+  --color-messageUser: #2e2219;
   --color-messageFriend: #f5e6d5;
   --color-bgColor: #352315;
 
@@ -71,7 +121,7 @@
   /* Verde vibrante */
   --color-friend: #2c5a2e;
   /* Verde escuro */
-  --color-messageUser: #f1f8e9;
+  --color-messageUser: #000000;
   /* Verde claro pálido */
   --color-messageFriend: #f9fbe7;
   /* Verde amarelado claro */

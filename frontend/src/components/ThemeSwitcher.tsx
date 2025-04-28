@@ -11,7 +11,8 @@ const ThemeSwitcher = () => {
     const themes: { id: ThemeType; name: string }[] = [
         { id: 'cafuntalk', name: 'CafunTalk' },
         { id: 'coffee', name: 'Café' },
-        { id: 'nature', name: 'Natureza' }
+        { id: 'nature', name: 'Natureza' },
+        { id: 'cyberpunk', name: 'Cyberpunk' }
     ];
 
     const toggleDropdown = () => {
@@ -32,6 +33,8 @@ const ThemeSwitcher = () => {
                 return '#d2a679'; // Marrom claro
             case 'nature':
                 return '#4caf50'; // Verde vibrante
+            case 'cyberpunk':
+                return '#00f3ff'; // Azul neon
             default:
                 return 'var(--color-user)';
         }

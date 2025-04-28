@@ -1,5 +1,5 @@
 // Tipos de tema e contexto
-export type ThemeType = 'cafuntalk' | 'coffee' | 'nature';
+export type ThemeType = 'cafuntalk' | 'coffee' | 'nature' | 'cyberpunk';
 
 export type ThemeContextType = {
     theme: ThemeType;
@@ -64,5 +64,24 @@ export const themes = {
         sendInput: '#ffffff',
         sendInputBG: '#43a047',
         dock: '#1b3c1e',
+    },
+    cyberpunk: {
+        userColor: '#00f3ff', // Azul neon
+        friendColor: '#1e1832', // Roxo escuro
+        messageUserColor: '#000912', // Preto azulado
+        messageFriendColor: '#e9f1ff', // Branco azulado
+        bgColor: '#0f0e17', // Preto azulado profundo
+        borderColor: '#220070', // Roxo profundo
+        welcomeBorder: '#3300aa', // Roxo neon
+        welcomeTextButton: '#d1f7ff', // Branco azulado claro
+        textInput: '#e2fcff', // Branco azulado claro
+        placeholder: '#7c8df7', // Azul claro
+        title: '#e2fcff', // Branco azulado claro
+        desc: '#7c8df7', // Azul claro
+        inputBG: '#0a0e20', // Azul muito escuro
+        inputBorder: '#3c2e91', // Roxo médio
+        sendInput: '#000000', // Preto
+        sendInputBG: '#ff007c', // Rosa neon
+        dock: '#0a0e20', // Azul muito escuro
     }
 };

@@ -21,11 +21,11 @@ const Welcome = ({
   // Lista de avatares disponíveis em useMemo para evitar recriação a cada renderização
   const availableAvatars = useMemo(() => [
     "/pfps/1.webp",
-    "https://avatars.githubusercontent.com/u/106438089?v=4",
+    "https://i.pinimg.com/736x/64/9f/eb/649feb704bd1a4e146f26b8132522b46.jpg",
     "https://i.pinimg.com/736x/90/43/58/904358a14809a275f0fe94c1f7efe69a.jpg",
-    "https://i.pinimg.com/736x/42/4a/cc/424acce14cb9b9c3b479609aae3ca75d.jpg",
-    "https://i.pinimg.com/736x/25/4c/7d/254c7d3e4737995ddd5292a3450f70ca.jpg",
-    "https://i.pinimg.com/736x/14/8d/bc/148dbc3f26f601cdc13995ba435d8531.jpg",
+    "https://i.pinimg.com/736x/58/7c/ea/587cea0af7d42ae3d24a7cc8397981e4.jpg",
+    "https://i.pinimg.com/736x/1c/2a/57/1c2a57814cf4c729b6bbe05dbb7ca406.jpg",
+    "https://i.pinimg.com/736x/18/b7/00/18b7008e1164eb0c89dac4272f34f24d.jpg",
   ], []);
 
   // Imagem padrão quando nenhuma estiver selecionada
