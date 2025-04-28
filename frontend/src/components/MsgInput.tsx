@@ -166,10 +166,10 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
           />
         </div>
         <button
-          className="bg-sendInputBG text-sendInput font-medium py-4 px-4 rounded-lg border border-sendInputBG hover:bg-sendInputBG/80 hover:text-sendInput transition-all duration-200 cursor-pointer hover:*:scale-130"
+          className="bg-bgColor text-user font-medium py-4 px-4 rounded-lg border border-inputBorder transition-transform duration-200 cursor-pointer hover:*:scale-130"
           onClick={handleSendMessage}
         >
-          <IoSend className="duration-300 transition-all" />
+          <IoSend />
         </button>
       </div>
     </div>

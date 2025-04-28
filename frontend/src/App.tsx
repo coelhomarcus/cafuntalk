@@ -11,10 +11,10 @@ import Conversation from "./components/Conversation";
 import MsgInput from "./components/MsgInput";
 
 //PROD
-// const socket: Socket = io("https://api.cafuntalk.com:3001");
+const socket: Socket = io("https://api.cafuntalk.com:3001");
 
 //DEV
-const socket: Socket = io("http://192.168.1.2:3001");
+// const socket: Socket = io("http://192.168.1.2:3001");
 // const socket: Socket = io("http://localhost:3001");
 
 export default function App() {
