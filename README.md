@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="frontend/public/logo.svg"  alt="Logo do CafunTalk" width="100" />
+  <img src="frontend/public/icons/logo.svg"  alt="Logo do CafunTalk" width="100" />
 </p>
 
 # CafunTalk
@@ -15,6 +15,7 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 - ✅ Mensagens em tempo real
 - ✅ Interface responsiva e amigável
 - ✅ Imagens (Através de links)
+- ✅ Figurinhas e GIFs prontos para envio
 - ✅ Bloco de Codigo
 - ✅ Avatar Personalizado
 - ✅ Mensagem de Entrada e Saida
@@ -30,6 +31,12 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 - Você pode usar qualquer link direto para imagens, incluindo GIFs.
 - Esse mesmo tipo de link também pode ser usado para definir sua foto de perfil.
 
+### **😀 Como enviar figurinhas/GIFs?**
+
+- Clique no botão de emoji (😊) ao lado do campo de mensagem.
+- Você verá uma variedade de GIFs e figurinhas disponíveis.
+- Clique na figurinha desejada para enviá-la instantaneamente.
+
 ### **🔒 Como criar um canal privado?**
 
 - Acesse o site no seguinte formato:
@@ -44,17 +51,7 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 
 ### **💻 Como usar os comandos?**
 
-- Comandos disponíveis:
-  - `/oi`
-  - `/oi2`
-  - `/danca`
-  - `/danca2`
-  - `/hm`
-  - `/cj`
-  - `/house`
-  - `/cansei`
-  - `/lendo`
-  - `/xerin`
+- `/comandos`
 
 ### **💻 Como enviar blocos de código?**
 
