@@ -1,0 +1,143 @@
+.GifPickerReact {
+    /* Usando variáveis CSS do tema cafuntalk */
+    color-scheme: dark;
+
+    --gpr-highlight-color: var(--color-user) !important;
+    --gpr-hover-bg-color: var(--color-inputBG) !important;
+    --gpr-focus-bg-color: var(--color-borderColor) !important;
+    --gpr-text-color: var(--color-textInput) !important;
+    --gpr-search-input-bg-color: var(--color-inputBG) !important;
+    --gpr-picker-border-color: var(--color-borderColor) !important;
+    --gpr-bg-color: var(--color-bgColor) !important;
+    --gpr-horizontal-padding: 10px !important;
+    --gpr-picker-border-radius: 8px !important;
+
+    /* Header */
+    --gpr-header-padding: 15px var(--gpr-horizontal-padding) !important;
+
+    /* Search */
+    --gpr-search-input-bg-color-active: var(--color-inputBG) !important;
+    --gpr-search-input-padding: 0 32px;
+    --gpr-search-input-border-radius: 8px;
+    --gpr-search-input-height: 40px;
+    --gpr-search-input-text-color: var(--color-textInput) !important;
+    --gpr-search-input-placeholder-color: var(--color-placeholder) !important;
+    --gpr-search-bar-inner-padding: var(--gpr-horizontal-padding) !important;
+    --gpr-search-border-color-active: var(--color-user) !important;
+
+    /* Body */
+    --gpr-body-padding: var(--gpr-header-padding) 0px;
+    --gpr-category-list-padding: var(--gpr-horizontal-padding) !important;
+    --gpr-category-border-radius: 4px;
+    --gpr-category-background-opacity: 40%;
+    --gpr-category-font-color: var(--color-textInput) !important;
+    --gpr-category-font-size: 16px;
+    --gpr-category-font-weight: 600;
+    --gpr-category-shadow-opacity: 60%;
+    --gpr-category-shadow-opacity-hover: 65%;
+    --gpr-category-border-color-hover: var(--color-user) !important;
+
+    /* Placeholder */
+    --gpr-placeholder-color: var(--color-placeholder) !important;
+
+    /* Fontes */
+    font-family: var(--font-message) !important;
+}
+
+/* Reset das configurações base para dark theme */
+.GifPickerReact.gpr-dark-theme {
+    color-scheme: dark;
+    --gpr-dark: var(--color-bgColor) !important;
+    --gpr-hover-bg-color: var(--color-inputBG) !important;
+    --gpr-focus-bg-color: var(--color-borderColor) !important;
+    --gpr-text-color: var(--color-textInput) !important;
+    --gpr-search-input-bg-color: var(--color-inputBG) !important;
+    --gpr-picker-border-color: var(--color-borderColor) !important;
+    --gpr-bg-color: var(--color-bgColor) !important;
+    --gpr-category-font-color: var(--color-textInput) !important;
+    --gpr-search-input-bg-color-active: var(--color-inputBG) !important;
+    --gpr-placeholder-color: var(--color-placeholder) !important;
+}
+
+.GifPickerReact * {
+    box-sizing: border-box;
+}
+
+.GifPickerReact.gpr-main {
+    border-color: var(--color-borderColor) !important;
+    border-radius: var(--gpr-picker-border-radius) !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: var(--color-bgColor) !important;
+    color: var(--color-textInput) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.2s ease;
+}
+
+.GifPickerReact button.gpr-btn {
+    cursor: pointer !important;
+    border: 0 !important;
+    background: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    transition: transform 0.2s ease;
+}
+
+.GifPickerReact button.gpr-btn:hover {
+    transform: scale(1.01) !important;
+}
+
+/* Estilização adicional para Tenor */
+.GifPickerReact .gpr-search-input {
+    background-color: var(--color-inputBG) !important;
+    border: 1px solid var(--color-inputBorder) !important;
+    color: var(--color-textInput) !important;
+    transition: all 0.3s ease;
+}
+
+.GifPickerReact .gpr-search-input:focus {
+    border-color: var(--color-user) !important;
+    box-shadow: 0 0 0 2px var(--color-user, oklch(89.7% 0.196 126.665)) !important;
+    outline: none !important;
+}
+
+.GifPickerReact .gpr-search-icon {
+    color: var(--color-placeholder) !important;
+}
+
+.GifPickerReact .gpr-body {
+    background-color: var(--color-bgColor) !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-borderColor) var(--color-bgColor);
+}
+
+.GifPickerReact .gpr-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.GifPickerReact .gpr-body::-webkit-scrollbar-track {
+    background: var(--color-bgColor);
+}
+
+.GifPickerReact .gpr-body::-webkit-scrollbar-thumb {
+    background-color: var(--color-borderColor);
+    border-radius: 6px;
+    border: 2px solid var(--color-bgColor);
+}
+
+.GifPickerReact .gpr-category-list-item {
+    transition: all 0.2s ease;
+}
+
+.GifPickerReact .gpr-category-list-item:hover {
+    background-color: var(--color-inputBG) !important;
+    transform: translateY(-2px);
+}
+
+.GifPickerReact .gpr-attribution {
+    background-color: var(--color-bgColor) !important;
+    color: var(--color-textInputFaded) !important;
+}
