@@ -54,7 +54,7 @@ const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen }: ThemeSw
         <div className="relative">
             <button
                 onClick={toggleDropdown}
-                className="flex items-center gap-1 text-sm p-1.5 rounded-md hover:bg-bgColor/30 transition-colors cursor-pointer"
+                className="flex items-center gap-1 text-sm p-1.5 rounded-md hover:bg-bgColor/30 transition-colors cursor-pointer select-none"
                 title="Mudar tema"
                 aria-label="Selecionar tema"
                 aria-expanded={isOpen}
@@ -80,7 +80,7 @@ const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen }: ThemeSw
                                     className={`w-full text-left px-4 py-2.5 text-textInput transition-all duration-150 cursor-pointer
                                       flex items-center justify-between
                                       ${isSelected ? 'bg-user/10 font-medium' : ''}
-                                      hover:bg-user/5 focus:bg-user/5 focus:outline-none`}
+                                      hover:bg-user/5 focus:bg-user/5 focus:outline-none select-none`}
                                     role="menuitem"
                                     aria-current={isSelected ? "true" : "false"}
                                 >

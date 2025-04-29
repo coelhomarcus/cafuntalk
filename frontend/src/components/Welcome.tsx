@@ -84,12 +84,12 @@ const Welcome = ({
   }, [isPredefinedImage]);
 
   const generateRandomName = useCallback(() => {
-    const adjectives = [
-      "Sombra", "Áureo", "Vulgo", "Ácido", "Veloz", "Cruel", "Bravo", "Lúgubre", "Morto", "Frio", "Sábio", "Rubro", "Místico", "Fúnebre", "Tenaz", "Bravio", "Raro", "Silente", "Oculto", "Rígido", "Cego", "Sombrio", "Ígneo"
-    ];
-
     const nouns = [
-      "Fera", "Lobo", "Cão", "Vulto", "Caos", "Raio", "Flecha", "Fardo", "Chama", "Olho", "Garra", "Fardo", "Foco", "Dente", "Punho", "Corte", "Som", "Nó", "Fio", "Golpe", "Herdeiro", "Alvo", "Trono", "Laço", "Grito", "Peso"
+      "Veloz", "Nobre", "Ágil", "Feroz", "Branco", "Sombrio"
+    ]
+    const adjectives = [
+      "Grifo", "Lince", "Falcão", "Cervo",
+      "Fênix", "Lobo", "Corvo", "Tigre", "Coelho"
     ];
 
     const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];

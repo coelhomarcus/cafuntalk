@@ -22,6 +22,7 @@ const Header = ({ online = 0, onlineUsers = [], onRequestUserList }: HeaderProps
   const [menuOpen, setMenuOpen] = useState(false);
   const [showUserList, setShowUserList] = useState(false);
   const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -50,6 +51,21 @@ const Header = ({ online = 0, onlineUsers = [], onRequestUserList }: HeaderProps
     setShowThemeMenu(isOpen);
   };
 
+  // Função para copiar o URL da sala para a área de transferência
+  const copyRoomUrl = () => {
+    const url = `${window.location.origin}${window.location.pathname}?${room}`;
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        setShowCopiedTooltip(true);
+        setTimeout(() => {
+          setShowCopiedTooltip(false);
+        }, 750);
+      })
+      .catch(err => {
+        console.error('Erro ao copiar URL:', err);
+      });
+  };
+
   return (
     <div className="m-2 mb-0 flex flex-col bg-dock border rounded-lg border-borderColor">
       {/* Header principal sempre visível */}
@@ -69,21 +85,32 @@ const Header = ({ online = 0, onlineUsers = [], onRequestUserList }: HeaderProps
               </clipPath>
             </defs>
           </svg>
-          <span className="text-user font-logo font-semibold">CafunTalk</span>
+          <span className="text-user font-logo font-semibold select-none">CafunTalk</span>
         </button>
 
         {/* Versão desktop: design minimalista */}
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center text-textInput/80">
-            <div className="flex items-center mr-4">
-              <FaHashtag className="text-user text-sm mr-1.5" />
-              <span className="text-sm">{room}</span>
+            <div className="relative flex items-center mr-4">
+              <button
+                onClick={copyRoomUrl}
+                className="flex items-center hover:bg-bgColor/30 p-1 rounded-md transition-colors cursor-pointer"
+                aria-label="Copiar URL da sala para área de transferência"
+              >
+                <FaHashtag className="text-user text-sm mr-1.5" />
+                <span className="text-sm">{room}</span>
+              </button>
+              {showCopiedTooltip && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-2 py-1 bg-bgColor border border-borderColor rounded text-xs text-textInput shadow-lg z-50 w-full">
+                  URL copiado!
+                </div>
+              )}
             </div>
 
             <div className="flex items-center">
               <button
                 onClick={toggleUserList}
-                className="flex items-center hover:bg-bgColor/30 p-1 rounded-md transition-colors"
+                className="flex items-center hover:bg-bgColor/30 p-1 rounded-md transition-colors cursor-pointer select-none"
               >
                 <BsPeopleFill className="text-user text-sm mr-1.5" />
                 <span className="text-sm">{online}</span>
@@ -149,10 +176,20 @@ const Header = ({ online = 0, onlineUsers = [], onRequestUserList }: HeaderProps
         <div className="md:hidden border-t border-borderColor pt-2 pb-3 px-4">
           <div className="flex items-center justify-between mb-2">
             <div>
-              <p className="flex items-center gap-1 text-textInput/70 text-sm">
-                <FaHashtag className="text-user" />
-                <span>{room}</span>
-              </p>
+              <div className="relative mb-2">
+                <button
+                  onClick={copyRoomUrl}
+                  className="flex items-center gap-1 text-textInput/70 text-sm hover:bg-bgColor/30 p-1 rounded-md transition-colors"
+                >
+                  <FaHashtag className="text-user" />
+                  <span>{room}</span>
+                </button>
+                {showCopiedTooltip && (
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 px-2 py-1 bg-bgColor border border-borderColor rounded text-xs text-textInput shadow-lg z-50">
+                    URL copiado!
+                  </div>
+                )}
+              </div>
               <button
                 onClick={toggleUserList}
                 className="flex items-center gap-1 text-textInput/70 text-sm hover:bg-bgColor/30 p-1 rounded-md transition-colors"
