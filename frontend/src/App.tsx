@@ -184,9 +184,12 @@ export default function App() {
   //Join Room & Count
   useEffect(() => {
     if (room && userName) {
-      socket.emit("joinRoom", room, userName);
+      const defaultAvatar = "/pfps/1.webp";
+      const finalAvatarUrl = avatarUrl || defaultAvatar;
+
+      socket.emit("joinRoom", room, userName, finalAvatarUrl);
     }
-  }, [room, userName]);
+  }, [room, userName, avatarUrl]);
 
   //SetMessage e gerenciar notificações
   useEffect(() => {

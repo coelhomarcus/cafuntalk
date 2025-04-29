@@ -170,15 +170,27 @@
     /* Evita transformações indesejadas */
 }
 
-.GifPickerReact .gpr-search-container .gpr-search-clear:hover {
-    color: var(--color-user) !important;
-    /* Cor do hover */
+.GifPickerReact button.gpr-btn-clear-search {
     transform: none !important;
-    /* Mantém sem transformação no hover */
 }
 
+.GifPickerReact gpr-btn button.gpr-btn-clear-search {
+    transform: none !important;
+}
+
+.GifPickerReact button.gpr-btn-clear-search:hover {
+    color: var(--color-user) !important;
+    transform: none !important;
+}
+
+.GifPickerReact gpr-btn button.gpr-btn-clear-search:hover {
+    color: var(--color-user) !important;
+    transform: none !important;
+}
+
+
 /* Corrige a posição do botão para evitar movimentação */
-.GifPickerReact .gpr-search-container .gpr-search-clear svg {
+.GifPickerReact .gpr-search-container .gpr-btn-clear-search svg {
     position: static !important;
     transform: none !important;
 }

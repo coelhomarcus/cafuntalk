@@ -13,10 +13,10 @@ const users = new Map();
 io.on("connection", (socket) => {
   console.log("Usuário: ", socket.id, " conectou!");
 
-  socket.on("joinRoom", (room, userName) => {
+  socket.on("joinRoom", (room, userName, avatarUrl = null) => {
     socket.join(room);
 
-    users.set(socket.id, { userName, room, avatarUrl: null });
+    users.set(socket.id, { userName, room, avatarUrl });
 
     io.to(room).emit("message", {
       sender: "System",
