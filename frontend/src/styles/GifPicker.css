@@ -74,7 +74,6 @@
     background-color: var(--color-bgColor) !important;
     color: var(--color-textInput) !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-    transition: all 0.2s ease !important;
 }
 
 .GifPickerReact button.gpr-btn {
@@ -83,20 +82,9 @@
     background: none !important;
     outline: none !important;
     padding: 0 !important;
-    transition: transform 0.2s ease !important;
-}
-
-.GifPickerReact button.gpr-btn:hover {
-    transform: scale(1.01) !important;
 }
 
 /* Estilização adicional para Tenor */
-.GifPickerReact .gpr-search-input {
-    background-color: var(--color-inputBG) !important;
-    border: 1px solid var(--color-inputBorder) !important;
-    color: var(--color-textInput) !important;
-    transition: all 0.3s ease !important;
-}
 
 .GifPickerReact .gpr-search-input:focus {
     border-color: var(--color-user) !important;
@@ -146,13 +134,8 @@
     border-radius: 20px !important;
 }
 
-.GifPickerReact .gpr-category-list-item {
-    transition: all 0.2s ease !important;
-}
-
 .GifPickerReact .gpr-category-list-item:hover {
     background-color: var(--color-inputBG) !important;
-    transform: translateY(-2px) !important;
 }
 
 .GifPickerReact .gpr-attribution {
@@ -163,34 +146,17 @@
 /* Estilização do botão de limpar pesquisa */
 .GifPickerReact .gpr-search-container .gpr-search-clear {
     color: var(--color-placeholder) !important;
-    /* Cor do ícone */
-    transition: color 0.2s ease !important;
-    /* Apenas transição de cor */
-    transform: none !important;
-    /* Evita transformações indesejadas */
-}
-
-.GifPickerReact button.gpr-btn-clear-search {
-    transform: none !important;
-}
-
-.GifPickerReact gpr-btn button.gpr-btn-clear-search {
-    transform: none !important;
 }
 
 .GifPickerReact button.gpr-btn-clear-search:hover {
     color: var(--color-user) !important;
-    transform: none !important;
 }
 
 .GifPickerReact gpr-btn button.gpr-btn-clear-search:hover {
     color: var(--color-user) !important;
-    transform: none !important;
 }
-
 
 /* Corrige a posição do botão para evitar movimentação */
 .GifPickerReact .gpr-search-container .gpr-btn-clear-search svg {
     position: static !important;
-    transform: none !important;
 }
