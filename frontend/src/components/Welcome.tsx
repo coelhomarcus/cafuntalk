@@ -2,6 +2,7 @@ import { useRoomName } from "../hooks/useRoomName";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { FaRandom } from "react-icons/fa";
 import { FaImage } from "react-icons/fa";
+import { FaExclamationTriangle } from "react-icons/fa";
 import isImageUrl from "../utils/isImageUrl";
 
 const Welcome = ({
@@ -10,12 +11,14 @@ const Welcome = ({
   setUserName,
   avatarUrl,
   setAvatarUrl,
+  onlineUsers = []
 }: TWelcome) => {
   const room = useRoomName();
   const [showModal, setShowModal] = useState(false);
   const [tempAvatarUrl, setTempAvatarUrl] = useState(avatarUrl);
   const [imageError, setImageError] = useState(false);
   const [validatedUrl, setValidatedUrl] = useState<string | null>(null);
+  const [isDuplicateName, setIsDuplicateName] = useState(false);
   const debounceTimerRef = useRef<number | null>(null);
 
   // Lista de avatares disponíveis em useMemo para evitar recriação a cada renderização
@@ -35,6 +38,18 @@ const Welcome = ({
   const isPredefinedImage = useCallback((url: string) => {
     return availableAvatars.includes(url);
   }, [availableAvatars]);
+
+  // Verificar duplicação de nome de usuário
+  useEffect(() => {
+    if (inputName.trim()) {
+      const isDuplicate = onlineUsers.some(
+        user => user.userName.toLowerCase() === inputName.trim().toLowerCase()
+      );
+      setIsDuplicateName(isDuplicate);
+    } else {
+      setIsDuplicateName(false);
+    }
+  }, [inputName, onlineUsers]);
 
   // Função para verificar se uma URL é uma imagem válida
   const validateImageUrl = useCallback((url: string) => {
@@ -70,17 +85,18 @@ const Welcome = ({
 
   const generateRandomName = useCallback(() => {
     const adjectives = [
-      "Veloz", "Nobre", "Ágil", "Feroz"
-    ]
+      "Sombra", "Áureo", "Vulgo", "Ácido", "Veloz", "Cruel", "Bravo", "Lúgubre", "Morto", "Frio", "Sábio", "Rubro", "Místico", "Fúnebre", "Tenaz", "Bravio", "Raro", "Silente", "Oculto", "Rígido", "Cego", "Sombrio", "Ígneo"
+    ];
+
     const nouns = [
-      "Grifo", "Lince", "Falcão", "Dragão", "Cervo",
-      "Fênix", "Lobo", "Corvo", "Tigre", "Coelho"
+      "Fera", "Lobo", "Cão", "Vulto", "Caos", "Raio", "Flecha", "Fardo", "Chama", "Olho", "Garra", "Fardo", "Foco", "Dente", "Punho", "Corte", "Som", "Nó", "Fio", "Golpe", "Herdeiro", "Alvo", "Trono", "Laço", "Grito", "Peso"
     ];
 
     const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
     const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    const randomName = `${randomAdj} ${randomNoun}`;
 
-    setInputName(`${randomAdj} ${randomNoun}`);
+    setInputName(randomName);
   }, [setInputName]);
 
   const handleAvatarClick = useCallback((avatar: string) => {
@@ -268,16 +284,24 @@ const Welcome = ({
         </p>
 
         <p className="text-textInput mb-2 text-sm">
-          Escolha seu nome <span className="text-red-400">*</span>
+          {isDuplicateName ? (
+            <span className="text-red-500 flex items-center">
+              <FaExclamationTriangle className="mr-1" /> Este nome já está sendo usado
+            </span>
+          ) : (
+            <>Escolha seu nome <span className="text-red-400">*</span></>
+          )}
         </p>
         <div className="space-y-4">
           <div className="flex gap-2">
-            <input
-              value={inputName}
-              onChange={(e) => setInputName(e.target.value)}
-              className="w-full bg-inputBG border border-inputBorder px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50"
-              placeholder="Marcus"
-            />
+            <div className="w-full relative">
+              <input
+                value={inputName}
+                onChange={(e) => setInputName(e.target.value)}
+                className={`w-full bg-inputBG border ${isDuplicateName ? 'border-red-500' : 'border-inputBorder'} px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50`}
+                placeholder="Marcus"
+              />
+            </div>
             <button
               onClick={generateRandomName}
               className="bg-inputBG border border-inputBorder px-2 py-2 rounded-lg text-textInput hover:bg-inputBG/80 transition-all cursor-pointer"
@@ -315,13 +339,14 @@ const Welcome = ({
           </div>
 
           <button
-            onClick={() => inputName.trim() ? setUserName(inputName) : null}
-            className={`w-full ${inputName.trim()
+            onClick={() => inputName.trim() && !isDuplicateName ? setUserName(inputName) : null}
+            className={`w-full ${inputName.trim() && !isDuplicateName
               ? "bg-sendInputBG text-sendInput hover:font-medium cursor-pointer"
               : "bg-sendInputBG/30 text-sendInput/40 cursor-not-allowed"} 
               px-4 py-2 rounded-lg 
               transition-all duration-300`}
-            disabled={!inputName.trim()}
+            disabled={!inputName.trim() || isDuplicateName}
+            title={isDuplicateName ? "Este nome já está sendo usado" : ""}
           >
             Entrar →
           </button>

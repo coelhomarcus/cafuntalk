@@ -6,16 +6,48 @@ import { FaHashtag } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 import { HiMenu, HiX } from "react-icons/hi";
 
+type OnlineUser = {
+  userName: string;
+  avatarUrl: string | null;
+};
+
 interface HeaderProps {
   online: number;
+  onlineUsers?: OnlineUser[];
+  onRequestUserList?: () => void;
 }
 
-const Header = ({ online = 0 }: HeaderProps) => {
+const Header = ({ online = 0, onlineUsers = [], onRequestUserList }: HeaderProps) => {
   const room = useRoomName();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showUserList, setShowUserList] = useState(false);
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleUserList = () => {
+    // Se já estiver aberto, fecha; se estiver fechado, abre e fecha o menu de tema
+    if (showUserList) {
+      setShowUserList(false);
+    } else {
+      // Solicita lista atualizada e fecha o menu de tema se estiver aberto
+      if (onRequestUserList) {
+        onRequestUserList();
+      }
+      setShowUserList(true);
+      setShowThemeMenu(false);
+    }
+  };
+
+  // Manipulador para o estado do menu de temas
+  const handleThemeMenuToggle = (isOpen: boolean) => {
+    // Se estiver abrindo, fecha a lista de usuários
+    if (isOpen && showUserList) {
+      setShowUserList(false);
+    }
+    setShowThemeMenu(isOpen);
   };
 
   return (
@@ -49,12 +81,20 @@ const Header = ({ online = 0 }: HeaderProps) => {
             </div>
 
             <div className="flex items-center">
-              <BsPeopleFill className="text-user text-sm mr-1.5" />
-              <span className="text-sm">{online}</span>
+              <button
+                onClick={toggleUserList}
+                className="flex items-center hover:bg-bgColor/30 p-1 rounded-md transition-colors"
+              >
+                <BsPeopleFill className="text-user text-sm mr-1.5" />
+                <span className="text-sm">{online}</span>
+              </button>
             </div>
           </div>
 
-          <ThemeSwitcher />
+          <ThemeSwitcher
+            isOpen={showThemeMenu}
+            setIsOpen={handleThemeMenuToggle}
+          />
         </div>
 
         {/* Botão do menu mobile */}
@@ -69,6 +109,41 @@ const Header = ({ online = 0 }: HeaderProps) => {
         </div>
       </div>
 
+      {/* Lista de usuários online (aparece ao clicar no contador) */}
+      {showUserList && (
+        <div className="absolute right-4 top-14 w-64 max-h-80 overflow-y-auto bg-bgColor border border-borderColor rounded-lg shadow-lg z-50 scrollbar-thin scrollbar-thumb-borderColor scrollbar-track-bgColor">
+          <div className="p-3 border-b border-borderColor flex justify-between items-center">
+            <h3 className="text-textInput text-sm font-medium">Usuários Online ({online})</h3>
+            <button
+              onClick={toggleUserList}
+              className="text-placeholder hover:text-user transition-colors"
+            >
+              <HiX size={16} />
+            </button>
+          </div>
+          <div className="py-2">
+            {onlineUsers.length > 0 ? (
+              <ul>
+                {onlineUsers.map((user, index) => (
+                  <li key={index} className="px-3 py-2 hover:bg-borderColor/30 flex items-center gap-2">
+                    <div className="w-8 h-8 rounded overflow-hidden flex-shrink-0">
+                      <img
+                        src={user.avatarUrl || "/pfps/1.webp"}
+                        alt={`Avatar de ${user.userName}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-textInput text-sm truncate">{user.userName}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="px-3 py-2 text-placeholder text-sm">Nenhum usuário online</p>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Menu expandido no mobile */}
       {menuOpen && (
         <div className="md:hidden border-t border-borderColor pt-2 pb-3 px-4">
@@ -78,12 +153,18 @@ const Header = ({ online = 0 }: HeaderProps) => {
                 <FaHashtag className="text-user" />
                 <span>{room}</span>
               </p>
-              <p className="flex items-center gap-1 text-textInput/70 text-sm">
+              <button
+                onClick={toggleUserList}
+                className="flex items-center gap-1 text-textInput/70 text-sm hover:bg-bgColor/30 p-1 rounded-md transition-colors"
+              >
                 <BsPeopleFill className="text-user" />
                 <span>{online} online</span>
-              </p>
+              </button>
             </div>
-            <ThemeSwitcher />
+            <ThemeSwitcher
+              isOpen={showThemeMenu}
+              setIsOpen={handleThemeMenuToggle}
+            />
           </div>
         </div>
       )}

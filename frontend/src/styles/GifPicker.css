@@ -159,3 +159,26 @@
     background-color: var(--color-bgColor) !important;
     color: var(--color-textInputFaded) !important;
 }
+
+/* Estilização do botão de limpar pesquisa */
+.GifPickerReact .gpr-search-container .gpr-search-clear {
+    color: var(--color-placeholder) !important;
+    /* Cor do ícone */
+    transition: color 0.2s ease !important;
+    /* Apenas transição de cor */
+    transform: none !important;
+    /* Evita transformações indesejadas */
+}
+
+.GifPickerReact .gpr-search-container .gpr-search-clear:hover {
+    color: var(--color-user) !important;
+    /* Cor do hover */
+    transform: none !important;
+    /* Mantém sem transformação no hover */
+}
+
+/* Corrige a posição do botão para evitar movimentação */
+.GifPickerReact .gpr-search-container .gpr-search-clear svg {
+    position: static !important;
+    transform: none !important;
+}

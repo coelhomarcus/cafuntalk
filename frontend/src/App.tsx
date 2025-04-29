@@ -17,12 +17,19 @@ const socket: Socket = io("https://api.cafuntalk.com:3001");
 // const socket: Socket = io("http://192.168.1.2:3001");
 // const socket: Socket = io("http://localhost:3001");
 
+// Definição do tipo para usuários online
+type OnlineUser = {
+  userName: string;
+  avatarUrl: string | null;
+};
+
 export default function App() {
   const [localMsg, setLocalMsg] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputName, setInputName] = useState<string>("");
   const [userName, setUserName] = useState<string | null>(null);
   const [userCount, setUserCount] = useState<number>(0);
+  const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   const [isComposing, setIsComposing] = useState<boolean>(false);
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const room = useRoomName();
@@ -38,6 +45,34 @@ export default function App() {
   const notificationQueue = useRef<Message[]>([]);
   const notificationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const NOTIFICATION_DELAY = 3000; // 3 segundos entre notificações
+
+  // Função para solicitar a lista de usuários
+  const requestUserList = useCallback(() => {
+    socket.emit("requestUserList", room);
+  }, [room]);
+
+  // Solicitar lista de usuários ao iniciar
+  useEffect(() => {
+    // Configura handlers para lista de usuários e contagem
+    const handleUserCount = (count: number): void => {
+      setUserCount(count);
+    };
+
+    const handleUserList = (users: OnlineUser[]): void => {
+      setOnlineUsers(users);
+    };
+
+    socket.on("userCount", handleUserCount);
+    socket.on("userList", handleUserList);
+
+    // Solicita a lista de usuários ao carregar o componente
+    requestUserList();
+
+    return () => {
+      socket.off("userCount", handleUserCount);
+      socket.off("userList", handleUserList);
+    };
+  }, [room, requestUserList]);
 
   useEffect(() => {
     if (userName && "Notification" in window) {
@@ -150,16 +185,6 @@ export default function App() {
   useEffect(() => {
     if (room && userName) {
       socket.emit("joinRoom", room, userName);
-
-      const handleUserCount = (count: number): void => {
-        setUserCount(count);
-      };
-
-      socket.on("userCount", handleUserCount);
-
-      return () => {
-        socket.off("userCount", handleUserCount);
-      };
     }
   }, [room, userName]);
 
@@ -243,11 +268,16 @@ export default function App() {
           setUserName={setUserName}
           avatarUrl={avatarUrl}
           setAvatarUrl={setAvatarUrl}
+          onlineUsers={onlineUsers}
         />
       ) : (
         <div className="flex flex-col h-[100dvh] bg-bgColor">
           {/* Header com o seletor de tema */}
-          <Header online={userCount} />
+          <Header
+            online={userCount}
+            onlineUsers={onlineUsers}
+            onRequestUserList={requestUserList}
+          />
 
           {/* Chat */}
           <Conversation

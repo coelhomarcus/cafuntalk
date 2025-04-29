@@ -4,9 +4,19 @@ import { ThemeType } from '../types/themes';
 import { IoColorPaletteSharp } from 'react-icons/io5';
 import { MdCheck } from 'react-icons/md';
 
-const ThemeSwitcher = () => {
+interface ThemeSwitcherProps {
+    isOpen?: boolean;
+    setIsOpen?: (isOpen: boolean) => void;
+}
+
+const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen }: ThemeSwitcherProps) => {
     const { theme, setTheme } = useTheme();
-    const [isOpen, setIsOpen] = useState(false);
+    // Estado local usado apenas se não for controlado externamente
+    const [localIsOpen, setLocalIsOpen] = useState(false);
+
+    // Usar estado controlado ou local
+    const isOpen = propIsOpen !== undefined ? propIsOpen : localIsOpen;
+    const setIsOpen = propSetIsOpen || setLocalIsOpen;
 
     const themes: { id: ThemeType; name: string }[] = [
         { id: 'cafuntalk', name: 'CafunTalk' },

@@ -12,6 +12,7 @@ type TWelcome = {
   setUserName: (value: string) => void;
   avatarUrl: string;
   setAvatarUrl: (value: string) => void;
+  onlineUsers?: OnlineUser[]; // Adicionando onlineUsers como prop opcional
 };
 
 type TConversation = {
@@ -25,4 +26,9 @@ type TMsgInput = {
   handleKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
   setIsComposing: React.Dispatch<React.SetStateAction<boolean>>;
   sendMessage: () => void;
+};
+
+type OnlineUser = {
+  userName: string;
+  avatarUrl: string | null;
 };
