@@ -7,9 +7,10 @@ import { MdCheck } from 'react-icons/md';
 interface ThemeSwitcherProps {
     isOpen?: boolean;
     setIsOpen?: (isOpen: boolean) => void;
+    mobileLayout?: boolean;
 }
 
-const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen }: ThemeSwitcherProps) => {
+const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen, mobileLayout = false }: ThemeSwitcherProps) => {
     const { theme, setTheme } = useTheme();
     // Estado local usado apenas se não for controlado externamente
     const [localIsOpen, setLocalIsOpen] = useState(false);
@@ -51,21 +52,37 @@ const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen }: ThemeSw
     };
 
     return (
-        <div className="relative">
+        <div className={`relative ${mobileLayout ? 'w-full' : ''}`}>
             <button
                 onClick={toggleDropdown}
-                className="flex items-center gap-1 text-sm p-1.5 rounded-md hover:bg-bgColor/30 transition-colors cursor-pointer select-none"
+                className={`flex items-center gap-2 text-sm rounded-md hover:bg-bgColor/30 transition-colors cursor-pointer select-none
+                  ${mobileLayout
+                        ? 'p-2 w-full text-textInput/70 justify-between'
+                        : 'p-1.5 gap-1'}`}
                 title="Mudar tema"
                 aria-label="Selecionar tema"
                 aria-expanded={isOpen}
                 aria-haspopup="true"
             >
-                <IoColorPaletteSharp className="text-user" size={18} />
+                <span className={`flex items-center ${mobileLayout ? 'gap-2' : 'gap-1'}`}>
+                    <IoColorPaletteSharp className="text-user" size={mobileLayout ? 20 : 18} />
+                    {mobileLayout && <span className="flex-1 text-left">Mudar tema</span>}
+                </span>
+                {mobileLayout && (
+                    <span
+                        className="inline-block w-3 h-3 rounded-full"
+                        style={{ backgroundColor: getThemeColor(theme) }}
+                        aria-hidden="true"
+                    ></span>
+                )}
             </button>
 
             {isOpen && (
                 <div
-                    className="absolute right-0 top-full mt-1 w-48 bg-bgColor border border-borderColor rounded-md shadow-lg z-50 overflow-hidden"
+                    className={`bg-bgColor border border-borderColor rounded-md shadow-lg z-50 overflow-hidden
+                      ${mobileLayout
+                            ? 'w-full mt-1'
+                            : 'absolute right-0 top-full mt-1 w-48'}`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="theme-menu"
