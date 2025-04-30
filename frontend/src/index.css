@@ -5,7 +5,6 @@
 @import "tailwindcss";
 @plugin 'tailwind-scrollbar';
 
-/* Tema padrão (cafuntalk) */
 :root {
   --font-logo: "Geist Mono", sans-serif;
   --font-name: "Geist Mono", sans-serif;
@@ -31,63 +30,39 @@
   --color-sendInputBG: oklch(89.7% 0.196 126.665);
   --color-dock: #0a0a0a;
 
-  /* New standardized colors */
   --color-shadowColor: #000000;
   --color-textInputFaded: #99a1af;
-  /* Faded version of textInput for secondary text */
 }
 
-/* Tema cyberpunk */
 [data-theme="cyberpunk"] {
   --font-logo: "Geist Mono", sans-serif;
   --font-name: "Geist Mono", sans-serif;
   --font-message: "Geist", sans-serif;
 
   --color-user: #00ff51;
-  /* Azul neon */
   --color-friend: #ff007c;
-  /* Roxo escuro */
   --color-messageUser: #000912;
-  /* Preto azulado */
   --color-messageFriend: #ffffff;
-  /* Branco azulado */
   --color-bgColor: #0f0e17;
-  /* Preto azulado profundo */
 
   --color-borderColor: #3c2e91;
-  /* Roxo profundo */
   --color-WelcomeBorder: #ff007c;
-  /* Roxo neon */
   --color-WelcomeTextButton: #d1f7ff;
-  /* Branco azulado claro */
   --color-textInput: #ffc400;
-  /* Branco azulado claro */
   --color-placeholder: #ff007c;
-  /* Azul claro */
   --color-title: #e2fcff;
-  /* Branco azulado claro */
   --color-desc: #ffc400;
-  /* Azul claro */
 
   --color-inputBG: #0a0e20;
-  /* Azul muito escuro */
   --color-inputBorder: #3c2e91;
-  /* Roxo médio */
   --color-sendInput: #000000;
-  /* Preto */
   --color-sendInputBG: #ff007c;
-  /* Rosa neon */
   --color-dock: #0a0e20;
-  /* Azul muito escuro */
 
-  /* Cores padronizadas adicionais */
   --color-shadowColor: #000520;
-  /* Sombra azulada */
   --color-textInputFaded: #7c8df7;
-  /* Azul claro */
 }
 
-/* Tema café */
 [data-theme="coffee"] {
   --color-user: #d2a679;
   --color-friend: #533e2d;
@@ -109,56 +84,66 @@
   --color-sendInputBG: #6b503d;
   --color-dock: #2a1c10;
 
-  /* New standardized colors */
   --color-shadowColor: #211308;
   --color-textInputFaded: #b69f84;
-  /* Faded version of textInput for secondary text */
 }
 
-/* Tema natureza */
-[data-theme="nature"] {
-  --color-user: #4caf50;
-  /* Verde vibrante */
-  --color-friend: #2c5a2e;
-  /* Verde escuro */
-  --color-messageUser: #000000;
-  /* Verde claro pálido */
-  --color-messageFriend: #f9fbe7;
-  /* Verde amarelado claro */
-  --color-bgColor: #1b3c1e;
-  /* Verde floresta escuro */
+[data-theme="ocean"] {
+  --font-logo: "Geist Mono", sans-serif;
+  --font-name: "Geist Mono", sans-serif;
+  --font-message: "Geist", sans-serif;
 
-  --color-borderColor: #33691e;
-  /* Verde oliveira */
-  --color-WelcomeBorder: #558b2f;
-  /* Verde folha */
-  --color-WelcomeTextButton: #e8f5e9;
-  /* Verde menta claro */
-  --color-textInput: #dcedc8;
-  /* Verde claro */
-  --color-placeholder: #aed581;
-  /* Verde médio claro */
-  --color-title: #f1f8e9;
-  /* Verde claro pálido */
-  --color-desc: #c5e1a5;
-  /* Verde pálido médio */
+  --color-user: #00bcd4;
+  --color-friend: #01579b;
+  --color-messageUser: #003366;
+  --color-messageFriend: #e3f2fd;
+  --color-bgColor: #002244;
 
-  --color-inputBG: #1b3c1e;
-  /* Verde floresta escuro */
-  --color-inputBorder: #388e3c;
-  /* Verde folha médio */
+  --color-borderColor: #01579b;
+  --color-WelcomeBorder: #0277bd;
+  --color-WelcomeTextButton: #e3f2fd;
+  --color-textInput: #e3f2fd;
+  --color-placeholder: #81d4fa;
+  --color-title: #e3f2fd;
+  --color-desc: #90caf9;
+
+  --color-inputBG: #001b36;
+  --color-inputBorder: #0277bd;
+  --color-sendInput: #001b36;
+  --color-sendInputBG: #00bcd4;
+  --color-dock: #001b36;
+
+  --color-shadowColor: #001425;
+  --color-textInputFaded: #81d4fa;
+}
+
+[data-theme="wumpus"] {
+  --font-logo: "Geist Mono", sans-serif;
+  --font-name: "Geist Mono", sans-serif;
+  --font-message: "Geist", sans-serif;
+
+  --color-user: #5865F2;
+  --color-friend: #5865F2;
+  --color-messageUser: #ffffff;
+  --color-messageFriend: #ffffff;
+  --color-bgColor: #36393f;
+
+  --color-borderColor: #40444b;
+  --color-WelcomeBorder: #4f545c;
+  --color-WelcomeTextButton: #ffffff;
+  --color-textInput: #dcddde;
+  --color-placeholder: #72767d;
+  --color-title: #ffffff;
+  --color-desc: #b9bbbe;
+
+  --color-inputBG: #2f3136;
+  --color-inputBorder: #4f545c;
   --color-sendInput: #ffffff;
-  /* Branco */
-  --color-sendInputBG: #43a047;
-  /* Verde forte */
-  --color-dock: #1b3c1e;
-  /* Verde floresta escuro */
+  --color-sendInputBG: #5865F2;
+  --color-dock: #2f3136;
 
-  /* New standardized colors */
-  --color-shadowColor: #1b5e20;
-  /* Verde escuro */
-  --color-textInputFaded: #a5d6a7;
-  /* Verde claro médio */
+  --color-shadowColor: #202225;
+  --color-textInputFaded: #72767d;
 }
 
 @theme {

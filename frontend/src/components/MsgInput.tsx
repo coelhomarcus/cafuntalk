@@ -218,7 +218,7 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
             <LinkPreview url={previewUrl} onClose={closePreview} />
           )}
 
-          <div className={`flex items-center bg-bgColor border rounded-lg py-1 ${isFocused ? 'border-user/30' : 'border-inputBorder'} transition-colors`}>
+          <div className={`flex items-center bg-inputBG border rounded-lg py-1 ${isFocused ? 'border-user/30' : 'border-inputBorder'} transition-colors`}>
             {/* Botão de figurinhas dentro do input */}
             <div className="px-3">
               <button

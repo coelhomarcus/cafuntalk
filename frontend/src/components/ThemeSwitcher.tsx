@@ -21,9 +21,10 @@ const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen, mobileLay
 
     const themes: { id: ThemeType; name: string }[] = [
         { id: 'cafuntalk', name: 'CafunTalk' },
-        { id: 'coffee', name: 'Café' },
-        { id: 'nature', name: 'Natureza' },
-        { id: 'cyberpunk', name: 'Cyberpunk' }
+        { id: 'coffee', name: 'Madeira' },
+        { id: 'ocean', name: 'Oceano' },
+        { id: 'cyberpunk', name: 'Cyberpunk' },
+        { id: 'wumpus', name: 'Wumpus' }
     ];
 
     const toggleDropdown = () => {
@@ -39,13 +40,15 @@ const ThemeSwitcher = ({ isOpen: propIsOpen, setIsOpen: propSetIsOpen, mobileLay
     const getThemeColor = (themeId: ThemeType) => {
         switch (themeId) {
             case 'cafuntalk':
-                return 'oklch(89.7% 0.196 126.665)'; // Verde brilhante
+                return 'oklch(89.7% 0.196 126.665)';
             case 'coffee':
-                return '#d2a679'; // Marrom claro
-            case 'nature':
-                return '#4caf50'; // Verde vibrante
+                return '#d2a679';
             case 'cyberpunk':
-                return '#00f3ff'; // Azul neon
+                return '#ff007c';
+            case 'ocean':
+                return '#00bcd4';
+            case 'wumpus':
+                return '#5865F2';
             default:
                 return 'var(--color-user)';
         }

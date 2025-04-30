@@ -22,7 +22,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
         // Verifica se o tema salvo é válido
         if (savedTheme === 'cafuntalk' || savedTheme === 'coffee' ||
-            savedTheme === 'nature' || savedTheme === 'cyberpunk') {
+            savedTheme === 'cyberpunk' || savedTheme === 'ocean' ||
+            savedTheme === 'wumpus') {
             return savedTheme as ThemeType;
         }
 
