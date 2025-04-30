@@ -1,8 +1,8 @@
 import { useRoomName } from "../hooks/useRoomName";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { FaRandom } from "react-icons/fa";
-import { FaImage } from "react-icons/fa";
-import { FaExclamationTriangle } from "react-icons/fa";
+import { FaRandom, FaImage } from "react-icons/fa";
+import { MdBlock } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
 import isImageUrl from "../utils/isImageUrl";
 
 const Welcome = ({
@@ -320,7 +320,11 @@ const Welcome = ({
         <p className="text-textInput mb-2 text-sm">
           {isDuplicateName ? (
             <span className="text-red-500 flex items-center">
-              <FaExclamationTriangle className="mr-1" /> Este nome já está sendo usado
+              <MdBlock className="mr-1" /> Este nome já está sendo usado
+            </span>
+          ) : inputName.trim() ? (
+            <span className="text-[oklch(89.7%_0.196_126.665)] flex items-center">
+              <FaCheck className="mr-1" /> Nome disponível
             </span>
           ) : (
             <>Escolha seu nome <span className="text-red-400">*</span></>
@@ -332,7 +336,12 @@ const Welcome = ({
               <input
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
-                className={`w-full bg-inputBG border ${isDuplicateName ? 'border-red-500' : 'border-inputBorder'} px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50`}
+                className={`w-full bg-inputBG border ${isDuplicateName
+                  ? 'border-red-500'
+                  : inputName.trim()
+                    ? 'border-[oklch(89.7%_0.196_126.665)]'
+                    : 'border-inputBorder'
+                  } px-4 py-2 rounded-lg focus:outline-none text-textInput placeholder-placeholder/50`}
                 placeholder="Marcus"
               />
             </div>

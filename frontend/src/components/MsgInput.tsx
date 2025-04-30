@@ -1,14 +1,13 @@
 "use client"
 
 import type React from "react"
+import StickerPicker from "./StickerPicker"
+import { useRoomName } from "../hooks/useRoomName";
 
 import { useState, useEffect, useRef } from "react"
-import { IoSend } from "react-icons/io5"
+import { IoSend, IoCloseSharp } from "react-icons/io5"
 import { FaSpinner, FaLink } from "react-icons/fa"
-import { IoCloseSharp } from "react-icons/io5"
-import StickerPicker from "./StickerPicker"
 import { PiStickerFill } from "react-icons/pi";
-import { useRoomName } from "../hooks/useRoomName";
 
 // Custom hook para placeholder responsivo
 const useResponsivePlaceholder = (room: string) => {
@@ -200,6 +199,58 @@ const MsgInput = ({ localMsg, setLocalMsg, handleKeyDown, setIsComposing, sendMe
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isStickerPickerOpen])
+
+  // Função para verificar se uma tecla é de digitação
+  const isTypingKey = (key: string) => {
+    const modifierKeys = ['Control', 'Alt', 'Shift', 'Meta', 'CapsLock', 'Tab', 'Escape'];
+    const navigationKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown'];
+    const functionKeys = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
+
+    return key.length === 1 &&
+      !modifierKeys.includes(key) &&
+      !navigationKeys.includes(key) &&
+      !functionKeys.includes(key);
+  };
+
+  // Event listener para focar no input ao pressionar teclas de digitação
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Não focar se algum elemento de input/textarea já estiver focado
+      const activeElement = document.activeElement;
+      const isInputActive = activeElement instanceof HTMLInputElement ||
+        activeElement instanceof HTMLTextAreaElement ||
+        activeElement?.getAttribute('contenteditable') === 'true';
+
+      // Não focar se estiver em uma conversa com algum menu aberto ou digitando em outro lugar
+      if (!isInputActive && isTypingKey(e.key) && !isStickerPickerOpen) {
+        e.preventDefault();
+        textareaRef.current?.focus();
+
+        // Adiciona o caractere digitado após o foco
+        if (textareaRef.current) {
+          const newValue = localMsg + e.key;
+          setLocalMsg(newValue);
+
+          // Colocamos em um setTimeout para garantir que ocorra após o foco
+          setTimeout(() => {
+            adjustTextareaHeight();
+
+            // Coloca o cursor no final do texto
+            if (textareaRef.current) {
+              textareaRef.current.selectionStart = newValue.length;
+              textareaRef.current.selectionEnd = newValue.length;
+            }
+          }, 0);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [isStickerPickerOpen, setLocalMsg, localMsg]);
 
   return (
     <div className="bg-transparent p-3 pb-4">
