@@ -11,15 +11,16 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 ## 🚀 Funcionalidades
 
 - ✅ Sem login, apenas seu username
+- ✅ Avatar Personalizado
 - ✅ Criação de salas de bate-papo
 - ✅ Mensagens em tempo real
 - ✅ Interface responsiva e amigável
 - ✅ Imagens (Através de links)
-- ✅ Figurinhas e GIFs prontos para envio
+- ✅ GIFs prontos para envio
 - ✅ Bloco de Codigo
-- ✅ Avatar Personalizado
-- ✅ Mensagem de Entrada e Saida
 - ✅ Comandos com `/`
+- ✅ Usuários Online
+- ✅ Temas 
 
 ## 📚 Como usar?
 
@@ -31,11 +32,10 @@ CafunTalk é um site de bate-papo moderno, sem distrações e privado, sem histo
 - Você pode usar qualquer link direto para imagens, incluindo GIFs.
 - Esse mesmo tipo de link também pode ser usado para definir sua foto de perfil.
 
-### **😀 Como enviar figurinhas/GIFs?**
+### **😀 Como enviar GIFs?**
 
-- Clique no botão de emoji (😊) ao lado do campo de mensagem.
-- Você verá uma variedade de GIFs e figurinhas disponíveis.
-- Clique na figurinha desejada para enviá-la instantaneamente.
+- Clique no botão ao lado do campo de mensagem.
+- Você verá uma variedade de GIFs disponíveis.
 
 ### **🔒 Como criar um canal privado?**
 
@@ -66,10 +66,3 @@ console.log("Mande Assim");
 - **Frontend:** React, Typescript, Tailwind
 - **Backend:** Node.js, Express, Javascript
 - **WebSocket:** Socket.IO
-
-## 💡 Passos Futuros
-
-- Melhorar componetização
-- Criar sistema de convites
-- Melhorar interface
-  - Tela de **seleção** e **criação** de salas mais amigavéis ao invés de utilizar o URL para isso.
