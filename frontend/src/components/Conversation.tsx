@@ -137,14 +137,27 @@ const Conversation = ({ messages, userName }: TConversation) => {
                     }`}
                 >
                   {isImage ? (
-                    <img
-                      src={m.text}
-                      alt="img"
-                      className="rounded-lg w-full max-w-[200px] md:max-w-[300px] h-auto object-contain"
-                      onLoad={() =>
-                        bottomRef.current?.scrollIntoView({ behavior: "smooth" })
-                      }
-                    />
+                    <a href={m.text} target="_blank" rel="noopener noreferrer">
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-full h-full bg-black/10 rounded-lg absolute inset-0 z-0">
+                          <div className="w-6 h-6 border-2 border-t-transparent border-user rounded-full animate-spin"></div>
+                        </div>
+                        <img
+                          src={m.text}
+                          alt="img"
+                          className="rounded-lg w-full max-w-[200px] md:max-w-[300px] h-auto object-contain relative z-10"
+                          onLoad={(e) => {
+                            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+                            const target = e.target as HTMLImageElement;
+                            target.style.opacity = "1";
+                            if (target.previousElementSibling) {
+                              (target.previousElementSibling as HTMLElement).style.display = "none";
+                            }
+                          }}
+                          style={{ opacity: 0 }}
+                        />
+                      </div>
+                    </a>
                   ) : code ? (
                     <SyntaxHighlighter
                       language={lang}

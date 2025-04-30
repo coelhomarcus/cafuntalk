@@ -3,6 +3,7 @@
 import type React from "react"
 import StickerPicker from "./StickerPicker"
 import { useRoomName } from "../hooks/useRoomName";
+import isImageUrl from "../utils/isImageUrl";
 
 import { useState, useEffect, useRef } from "react"
 import { IoSend, IoCloseSharp } from "react-icons/io5"
@@ -54,11 +55,11 @@ const LinkPreview = ({ url, onClose }: LinkPreviewProps) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  // Verificar se é uma URL de imagem ou GIF
-  const isImageUrl = /\.(jpeg|jpg|gif|png|webp)$/i.test(url)
+  // Usar a função atualizada isImageUrl
+  const isImg = isImageUrl(url)
 
   useEffect(() => {
-    if (isImageUrl) {
+    if (isImg) {
       const img = new Image()
       img.onload = () => setLoading(false)
       img.onerror = () => setError(true)
@@ -66,7 +67,7 @@ const LinkPreview = ({ url, onClose }: LinkPreviewProps) => {
     } else {
       setLoading(false)
     }
-  }, [url, isImageUrl])
+  }, [url, isImg])
 
   if (error) {
     return null
@@ -91,7 +92,7 @@ const LinkPreview = ({ url, onClose }: LinkPreviewProps) => {
         <IoCloseSharp />
       </button>
 
-      {isImageUrl ? (
+      {isImg ? (
         <div className="max-h-[250px] overflow-hidden">
           <img
             src={url || "/placeholder.svg"}
