@@ -221,7 +221,7 @@ const Welcome = ({
             <h2 className="text-textInput text-lg font-medium">Selecione uma imagem de perfil</h2>
             <button
               onClick={() => setShowModal(false)}
-              className="text-desc hover:text-textInput"
+              className="text-desc hover:text-textInput cursor-pointer"
             >
               ✕
             </button>
@@ -284,7 +284,7 @@ const Welcome = ({
           <div className="flex justify-end">
             <button
               onClick={saveAvatar}
-              className="bg-sendInputBG text-sendInput px-4 py-2 rounded-lg hover:font-medium transition-all"
+              className="bg-sendInputBG text-sendInput px-4 py-2 rounded-lg hover:font-medium transition-all cursor-pointer"
             >
               Salvar
             </button>
@@ -402,7 +402,7 @@ const Welcome = ({
         </div>
       </div>
       <div>
-        <a href="https://coelhomarcus.com" target="_blank" className="text-xs text-desc underline">@coelhomarcus</a>
+        <a href="https://coelhomarcus.com" target="_blank" className="text-xs text-desc underline hover:text-user">@coelhomarcus</a>
       </div>
     </div >
   );
